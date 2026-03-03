@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProductivityTimer.Domain.Models.DBModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +7,7 @@ namespace ProductivityTimer.Domain.Interfaces
 {
     public interface ITaskRepository
     {
-        Task<IEnumerable<ToDoTask>> GetAllTasksAsync();
+        Task<IEnumerable<ToDoTask>> GetAllTasksAsync(); // getting them into a readable list 
         Task AddToListAsync(ToDoTask task);
         Task RemoveFromListAsync(ToDoTask task);
         Task CompleteTaskAsync(ToDoTask task);

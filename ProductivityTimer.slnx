@@ -1,3 +1,6 @@
 <Solution>
-  <Project Path="ProductivityTimer/ProductivityTimer.csproj" />
+  <Project Path="ProductivityTimer.Domain/ProductivityTimer.Domain.csproj" />
+  <Project Path="ProductivityTimer/ProductivityTimer.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
 </Solution>
