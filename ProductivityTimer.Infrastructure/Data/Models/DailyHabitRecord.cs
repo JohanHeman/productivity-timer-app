@@ -2,7 +2,7 @@ using SQLite;
 
 namespace ProductivityTimer.Infrastructure.Data.Models
 {
-    internal class DailyHabitRecord
+    public class DailyHabitRecord
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

@@ -6,14 +6,36 @@ namespace ProductivityTimer
 {
     public partial class App : Application
     {
-        public App()
+        private readonly DatabaseInitializer _databaseInitializer;
+        public App(DatabaseInitializer databaseInitializer)
         {
             InitializeComponent();
+            _databaseInitializer = databaseInitializer;
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
             return new Window(new AppShell());
+        }
+
+        protected override async void OnStart()
+        {
+            base.OnStart();
+            try
+            {
+                await _databaseInitializer.InitializeAsync();
+            }
+            catch (Exception ex)
+            {
+                if (App.Current?.MainPage is not null)
+                {
+                    await App.Current.MainPage.DisplayAlertAsync(
+                        "Database Error",
+                        $"Failed to initialize database: {ex.Message}",
+                        "OK");
+                }
+            }
+
         }
 
 

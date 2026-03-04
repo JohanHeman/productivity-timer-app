@@ -4,7 +4,7 @@ using System.Text;
 using SQLite;
 namespace ProductivityTimer.Infrastructure.Data.Models
 {
-    internal class ToDoTaskRecord
+    public class ToDoTaskRecord
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

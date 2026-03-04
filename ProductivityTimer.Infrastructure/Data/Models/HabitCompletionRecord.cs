@@ -5,7 +5,7 @@ using SQLite;
 
 namespace ProductivityTimer.Infrastructure.Data.Models
 {
-    internal class HabitCompletionRecord
+    public class HabitCompletionRecord
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
