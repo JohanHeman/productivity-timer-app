@@ -1,4 +1,4 @@
-namespace ProductivityTimer.Domain.Models.DBModels
+namespace ProductivityTimer.Domain.Models.Entities
 {
     public class HabitCompletion
     {

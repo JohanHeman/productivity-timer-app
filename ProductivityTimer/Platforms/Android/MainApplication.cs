@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace ProductivityTimer
+namespace ProductivityTimer.Platforms.Android
 {
     [Application]
     public class MainApplication : MauiApplication

@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace ProductivityTimer
+namespace ProductivityTimer.Platforms.iOS
 {
     public class Program
     {

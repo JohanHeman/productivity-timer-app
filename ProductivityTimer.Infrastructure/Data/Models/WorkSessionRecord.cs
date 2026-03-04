@@ -1,11 +1,12 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-namespace ProductivityTimer.Domain.Models.DBModels
+using SQLite;
+namespace ProductivityTimer.Infrastructure.Data.Models
 {
-    public class WorkSession
+    internal class WorkSessionRecord
     {
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public TimeSpan Duration { get; set; }
         public DateTime StartedAt { get; set; }

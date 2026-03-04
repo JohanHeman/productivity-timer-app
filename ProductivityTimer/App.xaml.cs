@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using ProductivityTimer.Infrastructure.Data;
+using ProductivityTimer.Infrastructure.Services;
 
 namespace ProductivityTimer
 {
@@ -13,5 +15,7 @@ namespace ProductivityTimer
         {
             return new Window(new AppShell());
         }
+
+
     }
 }

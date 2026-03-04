@@ -1,4 +1,4 @@
-namespace ProductivityTimer.Domain.Models.TimerModels
+namespace ProductivityTimer.Domain.Models.Entities
 {
     public class PomodoroTimer
     {

@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="ProductivityTimer.Domain/ProductivityTimer.Domain.csproj" />
+  <Project Path="ProductivityTimer.Infrastructure/ProductivityTimer.Infrastructure.csproj" Id="98ce6bf3-2840-4ee5-9059-cf88f50bc3c1" />
   <Project Path="ProductivityTimer/ProductivityTimer.csproj">
     <Deploy Solution="Debug|*" />
   </Project>

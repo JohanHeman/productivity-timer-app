@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ProductivityTimer
+namespace ProductivityTimer.Platforms.MacCatalyst
 {
     [Register("AppDelegate")]
     public class AppDelegate : MauiUIApplicationDelegate

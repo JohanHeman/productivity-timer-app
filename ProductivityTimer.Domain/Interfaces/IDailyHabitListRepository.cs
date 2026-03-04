@@ -1,4 +1,4 @@
-﻿using ProductivityTimer.Domain.Models.DBModels;
+﻿using ProductivityTimer.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

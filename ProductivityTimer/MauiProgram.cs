@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProductivityTimer.Infrastructure.Data;
+using ProductivityTimer.Infrastructure.Services;
 
 namespace ProductivityTimer
 {
@@ -15,11 +17,18 @@ namespace ProductivityTimer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<SQLIteConnectionFactory>();
+            builder.Services.AddSingleton<DatabaseInitializer>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
-            return builder.Build();
+            var app = builder.Build(); 
+            var dbinitializer = app.Services.GetRequiredService<DatabaseInitializer>(); // gets the required services for the app 
+            dbinitializer?.InitializeAsync().GetAwaiter().GetResult(); // runs the method to create tables
+            return app;
+
         }
     }
 }
