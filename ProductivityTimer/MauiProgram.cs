@@ -21,7 +21,7 @@ namespace ProductivityTimer
 
             builder.Services.AddSingleton<SQLIteConnectionFactory>();
             builder.Services.AddSingleton<DatabaseInitializer>();
-            builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitListRepository>();
+            builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitRepository>();
             builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
             builder.Services.AddSingleton<IWorkSessionRepository, WorkSessionRepository>();
 

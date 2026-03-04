@@ -9,13 +9,14 @@ using ProductivityTimer.Domain.Models.Entities;
 
 namespace ProductivityTimer.Infrastructure.Repositories
 {
-    public class DailyHabitListRepository : IDailyHabitRepository
+    public class DailyHabitRepository : IDailyHabitRepository
     {
-        private readonly IDailyHabitRepository _dailyRepo;
-        public DailyHabitListRepository(IDailyHabitRepository dailyrepo)
+        private readonly SQLIteConnectionFactory _connectionFactory;
+        public DailyHabitRepository(SQLIteConnectionFactory connectionFactory)
         {
-            _dailyRepo = dailyrepo;
+            _connectionFactory = connectionFactory;
         }
+
         public Task AddDailyHabitAsync(DailyHabit dailyHabit)
         {
             throw new NotImplementedException();

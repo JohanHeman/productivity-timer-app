@@ -29,15 +29,10 @@ namespace ProductivityTimer
             {
                 if (App.Current?.MainPage is not null)
                 {
-                    await App.Current.MainPage.DisplayAlertAsync(
-                        "Database Error",
-                        $"Failed to initialize database: {ex.Message}",
-                        "OK");
+                    await App.Current.MainPage.DisplayAlertAsync("Database Error", ex.Message, "OK");
                 }
+
             }
-
         }
-
-
     }
 }
