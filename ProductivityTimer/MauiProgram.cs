@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProductivityTimer.Domain.Interfaces;
 using ProductivityTimer.Infrastructure.Data;
 using ProductivityTimer.Infrastructure.Services;
+using ProductivityTimer.Infrastructure.Repositories;
 
 namespace ProductivityTimer
 {
@@ -19,6 +21,9 @@ namespace ProductivityTimer
 
             builder.Services.AddSingleton<SQLIteConnectionFactory>();
             builder.Services.AddSingleton<DatabaseInitializer>();
+            builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitListRepository>();
+            builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
+            builder.Services.AddSingleton<IWorkSessionRepository, WorkSessionRepository>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -7,6 +7,7 @@ namespace ProductivityTimer.Domain.Interfaces
 {
     public interface IDailyHabitRepository
     {
+        
         Task<IEnumerable<DailyHabit>> GetAllDailyHabitsAsync(); // to get them to a list 
         Task AddDailyHabitAsync(DailyHabit dailyHabit); 
         Task RemoveDailyHabitAsync(DailyHabit dailyHabit);
