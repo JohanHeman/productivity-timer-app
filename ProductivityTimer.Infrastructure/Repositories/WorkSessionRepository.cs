@@ -37,19 +37,55 @@ namespace ProductivityTimer.Infrastructure.Repositories
             }
         }
 
-        public Task<double> GetTotalHoursForMonthAsync(DateTime date)
+        public async Task<double> GetTotalHoursForMonthAsync(DateTime date)
         {
-            throw new NotImplementedException();
+            var monthStart = new DateTime(date.Year, date.Month, 1);
+            var monthEnd = monthStart.AddMonths(1);
+            try
+            {
+                var database = _connectionFactory.CreateConnection();
+                var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= monthStart && r.StartedAt < monthEnd).ToListAsync();
+                return sessions.Sum(r => r.Duration.TotalHours);
+            }
+            catch (SQLite.SQLiteException ex)
+            {
+                _logger.LogError(ex, "Failed to get total hours for month");
+                throw;
+            }
         }
 
-        public Task<double> GetTotalHoursForWeekAsync(DateTime date)
+        public async Task<double> GetTotalHoursForWeekAsync(DateTime date)
         {
-            throw new NotImplementedException();
+            var day = date.Date; // todays date 
+            var daysSinceMonday = ((int)day.DayOfWeek + 6) % 7; // converts dayofweek enum into an int, adds 6 to it so we can run % 7 to see the difference between today and monday example sunday + 6 = 6 % 7 = 6
+            var weekStart = day.AddDays(-daysSinceMonday);
+            var weekEnd = weekStart.AddDays(7);
+            try
+            {
+                var database = _connectionFactory.CreateConnection();
+                var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= weekStart && r.StartedAt < weekEnd).ToListAsync();
+                return sessions.Sum(r => r.Duration.TotalHours);
+            }
+            catch (SQLite.SQLiteException ex)
+            {
+                _logger.LogError(ex, "Failed to get total hours for week");
+                throw;
+            }
         }
 
-        public Task SaveSessionAsync(WorkSession session)
+        public async Task SaveSessionAsync(WorkSession session)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var database = _connectionFactory.CreateConnection();
+                WorkSessionRecord record = new WorkSessionRecord { Duration = session.Duration, StartedAt = session.StartedAt, EndedAt = session.EndedAt };
+                await database.InsertAsync(record);
+            }
+            catch (SQLite.SQLiteException ex)
+            {
+                _logger.LogError(ex, "Failed to save session");
+                throw;
+            }
         }
     }
 }
