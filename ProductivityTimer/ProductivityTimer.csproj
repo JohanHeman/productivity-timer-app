@@ -74,4 +74,10 @@
 	  <ProjectReference Include="..\ProductivityTimer.Infrastructure\ProductivityTimer.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <MauiXaml Update="Resources\Styles\ButtonStyles.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
 </Project>

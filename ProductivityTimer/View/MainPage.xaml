@@ -1,7 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductivityTimer.MainPage">
+           <ContentPage.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#0B1020" Offset="0.0" />
+                <GradientStop Color="#111827" Offset="0.5" />
+                <GradientStop Color="#1F2937" Offset="1.0" />
+            </LinearGradientBrush>
+           </ContentPage.Background>
 
     <ScrollView>
         <VerticalStackLayout 
@@ -16,23 +23,60 @@
                 FontSize="18"
                 Margin="0,0,0,20"/>
 
-            <Button
-                Text="Work"
-                WidthRequest="220"
-                HeightRequest="50"
-                HorizontalOptions="Center"/>
+            
+            <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#7C3AED" Offset="0.0" />
+                            <GradientStop Color="#06B6D4" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                    </Border.Shadow>
+                </Border>
+                <Button
+                    Text="Work"
+                    Style="{StaticResource GradientButtonText}"
+                    />
+            </Grid>
 
-            <Button
-                Text="Review Work History"
-                WidthRequest="220"
-                HeightRequest="50"
-                HorizontalOptions="Center"/>
+            <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#7C3AED" Offset="0.0" />
+                            <GradientStop Color="#06B6D4" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                    </Border.Shadow>
+                </Border>
+                <Button
+                    Text="Review Work History"
+                    Style="{StaticResource GradientButtonText}"
+                    />
+            </Grid>
 
-            <Button
-                Text="Quit"
-                WidthRequest="220"
-                HeightRequest="50"
-                HorizontalOptions="Center"/>
+            <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
+                <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#7C3AED" Offset="0.0" />
+                            <GradientStop Color="#06B6D4" Offset="1.0" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <Border.Shadow>
+                        <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                    </Border.Shadow>
+                </Border>
+                <Button
+                    Text="Quit"
+                    Style="{StaticResource GradientButtonText}"
+                    />
+            </Grid>
                 
         </VerticalStackLayout>
     </ScrollView>
