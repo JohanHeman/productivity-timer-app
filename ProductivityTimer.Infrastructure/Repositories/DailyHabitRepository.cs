@@ -27,7 +27,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             {
 
                 var database = _connectionFactory.CreateConnection();
-                var record = new DailyHabitRecord { Id = dailyHabit.Id, Name = dailyHabit.Name, DailyHabitsListId = dailyHabit.DailyHabitsListId };
+                var record = new DailyHabitRecord { Name = dailyHabit.Name, DailyHabitsListId = dailyHabit.DailyHabitsListId };
                 await database.InsertAsync(record);
 
             }
@@ -45,7 +45,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             try
             {
                 var database = _connectionFactory.CreateConnection();
-                var record = new HabitCompletionRecord { Id = dailyHabit.Id, DailyHabitRecordId = dailyHabit.Id, CompletedDate = DateTime.Now };
+                var record = new HabitCompletionRecord { DailyHabitRecordId = dailyHabit.Id, CompletedDate = DateTime.Now };
                 await database.InsertAsync(record);
             }
             catch (SQLite.SQLiteException ex)
@@ -77,7 +77,12 @@ namespace ProductivityTimer.Infrastructure.Repositories
             try
             {
                 var database = _connectionFactory.CreateConnection();
-                await database.DeleteAsync(dailyHabit);
+                var record = await database.Table<DailyHabitRecord>().Where(r => r.Id == dailyHabit.Id).FirstOrDefaultAsync();
+                if (record == null)
+                {
+                    throw new KeyNotFoundException("Daily habit not found");
+                }
+                await database.DeleteAsync(record);
             }
             catch (SQLite.SQLiteException ex)
             {
