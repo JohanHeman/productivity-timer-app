@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
@@ -16,7 +16,8 @@ namespace ProductivityTimer.ViewModels
         {
             WorkNavigationCommand = new Command(async () => await GoToWorkAsync());
             HistoryNavigationCommand = new Command(async () => await GoToHistoryAsync());
-            QuitCommand = new Command(async () => Application.Current?.Quit());
+            QuitCommand = new Command(() => Application.Current?.Quit());
+            _quoteText = string.Empty;
         }
 
         private string _quoteText { get; set; }
@@ -32,19 +33,19 @@ namespace ProductivityTimer.ViewModels
 
         private void OnPropertyChanged(string name)
         {
-            throw new NotImplementedException();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         private async Task GoToWorkAsync()
         {
-            await Shell.Current.GoToAsync("//WorkPage");
+            await Shell.Current.GoToAsync("WorkPage");
         }
 
         private async Task GoToHistoryAsync()
         {
-            await Shell.Current.GoToAsync("//HistoryPage");
+            await Shell.Current.GoToAsync("HistoryPage");
         }
     }
 }

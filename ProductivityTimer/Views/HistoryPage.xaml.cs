@@ -1,4 +1,4 @@
-namespace ProductivityTimer.View;
+namespace ProductivityTimer.Views;
 
 public partial class HistoryPage : ContentPage
 {

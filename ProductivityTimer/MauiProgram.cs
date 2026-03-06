@@ -1,8 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using ProductivityTimer.Domain.Interfaces;
 using ProductivityTimer.Infrastructure.Data;
 using ProductivityTimer.Infrastructure.Services;
 using ProductivityTimer.Infrastructure.Repositories;
+using ProductivityTimer.Views;
 using ProductivityTimer.ViewModels;
 
 namespace ProductivityTimer

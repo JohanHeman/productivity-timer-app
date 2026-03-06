@@ -1,6 +1,6 @@
-﻿using ProductivityTimer.ViewModels;
+using ProductivityTimer.ViewModels;
 
-namespace ProductivityTimer
+namespace ProductivityTimer.Views
 {
     public partial class MainPage : ContentPage
     {
