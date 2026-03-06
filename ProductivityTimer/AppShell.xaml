@@ -10,7 +10,7 @@
     <TabBar>
 
     <ShellContent
-        Title="Home"
+        Title="Current Page"
         ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
         
@@ -20,18 +20,5 @@
         Route="SettingsPage" />
     </TabBar>
 
-    
-
-    
-
-    <!--
-    <ShellContent
-        ContentTemplate="{DataTemplate views:WorkPage}"
-        Route="WorkPage" />
-
-    <ShellContent
-        ContentTemplate="{DataTemplate views:HistoryPage}"
-        Route="HistoryPage" />
-    -->
 
 </Shell>

@@ -3,10 +3,83 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductivityTimer.Views.WorkPage"
              Title="WorkPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#0B1020" Offset="0.0" />
+            <GradientStop Color="#111827" Offset="0.5" />
+            <GradientStop Color="#1F2937" Offset="1.0" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+    
+    
+    <VerticalStackLayout
+        VerticalOptions="Center"
+        Spacing="20"
+        Padding="30">
+
+
+        <Label
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            FontSize="18"
+            Margin="0,0,0,20"
+        Text="Timer will be displayed here"></Label>
+        <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#4338CA" Offset="0.0" />
+                        <GradientStop Color="#0F766E" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                </Border.Shadow>
+            </Border>
+            <Button
+                    Text="Start Working / Stop working"
+                    Style="{StaticResource GradientButtonText}"
+                    />
+        </Grid>
+
+        <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#4338CA" Offset="0.0" />
+                        <GradientStop Color="#0F766E" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                </Border.Shadow>
+            </Border>
+            <Button
+                    Text="Pause timer / Start timer"
+                    Style="{StaticResource GradientButtonText}"
+                    Command="{Binding WorkNavigationCommand}"
+                    />
+        </Grid>
+
+        <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#4338CA" Offset="0.0" />
+                        <GradientStop Color="#0F766E" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                </Border.Shadow>
+            </Border>
+            <Button
+                    Text="Home"
+                    Style="{StaticResource GradientButtonText}"
+                    Command="{Binding WorkNavigationCommand}"
+                    />
+        </Grid>
+
+
     </VerticalStackLayout>
 </ContentPage>

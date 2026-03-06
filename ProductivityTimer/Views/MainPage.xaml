@@ -10,7 +10,6 @@
             </LinearGradientBrush>
            </ContentPage.Background>
 
-    <ScrollView>
         <VerticalStackLayout 
             VerticalOptions="Center" 
             Spacing="20" 
@@ -82,6 +81,5 @@
             </Grid>
                 
         </VerticalStackLayout>
-    </ScrollView>
   
 </ContentPage>
