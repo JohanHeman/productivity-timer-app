@@ -76,7 +76,7 @@
             <Button
                     Text="Home"
                     Style="{StaticResource GradientButtonText}"
-                    Command="{Binding WorkNavigationCommand}"
+                    Command="{Binding NavigateHomeCommand}"
                     />
         </Grid>
 

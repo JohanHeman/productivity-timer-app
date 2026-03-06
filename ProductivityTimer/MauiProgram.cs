@@ -29,6 +29,10 @@ namespace ProductivityTimer
 
             builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<WorkPageViewModel>();
+            builder.Services.AddTransient<WorkPage>();
+            builder.Services.AddTransient<HistoryPageViewModel>();
+            builder.Services.AddTransient<HistoryPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();
