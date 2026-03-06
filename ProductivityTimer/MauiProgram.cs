@@ -3,6 +3,7 @@ using ProductivityTimer.Domain.Interfaces;
 using ProductivityTimer.Infrastructure.Data;
 using ProductivityTimer.Infrastructure.Services;
 using ProductivityTimer.Infrastructure.Repositories;
+using ProductivityTimer.ViewModels;
 
 namespace ProductivityTimer
 {
@@ -24,6 +25,9 @@ namespace ProductivityTimer
             builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitRepository>();
             builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
             builder.Services.AddSingleton<IWorkSessionRepository, WorkSessionRepository>();
+
+            builder.Services.AddTransient<MainPageViewModel>();
+            builder.Services.AddTransient<MainPage>();
 
 #if DEBUG
             builder.Logging.AddDebug();

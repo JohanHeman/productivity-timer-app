@@ -17,7 +17,7 @@
             Padding="30">
             
             <Label
-                Text="Api text quote will be here"
+                Text="{Binding QuoteText}"
                 HorizontalOptions="Center"
                 HorizontalTextAlignment="Center"
                 FontSize="18"
@@ -28,8 +28,8 @@
                 <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#7C3AED" Offset="0.0" />
-                            <GradientStop Color="#06B6D4" Offset="1.0" />
+                            <GradientStop Color="#4338CA" Offset="0.0" />
+                            <GradientStop Color="#0F766E" Offset="1.0" />
                         </LinearGradientBrush>
                     </Border.Background>
                     <Border.Shadow>
@@ -39,6 +39,7 @@
                 <Button
                     Text="Work"
                     Style="{StaticResource GradientButtonText}"
+                    Command="{Binding WorkNavigationCommand}"
                     />
             </Grid>
 
@@ -46,8 +47,8 @@
                 <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#7C3AED" Offset="0.0" />
-                            <GradientStop Color="#06B6D4" Offset="1.0" />
+                            <GradientStop Color="#4338CA" Offset="0.0" />
+                            <GradientStop Color="#0F766E" Offset="1.0" />
                         </LinearGradientBrush>
                     </Border.Background>
                     <Border.Shadow>
@@ -57,6 +58,7 @@
                 <Button
                     Text="Review Work History"
                     Style="{StaticResource GradientButtonText}"
+                    Command="{Binding HistoryNavigationCommand}"
                     />
             </Grid>
 
@@ -64,8 +66,8 @@
                 <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                            <GradientStop Color="#7C3AED" Offset="0.0" />
-                            <GradientStop Color="#06B6D4" Offset="1.0" />
+                            <GradientStop Color="#4338CA" Offset="0.0" />
+                            <GradientStop Color="#0F766E" Offset="1.0" />
                         </LinearGradientBrush>
                     </Border.Background>
                     <Border.Shadow>
@@ -75,6 +77,7 @@
                 <Button
                     Text="Quit"
                     Style="{StaticResource GradientButtonText}"
+                    Command="{Binding QuitCommand}"
                     />
             </Grid>
                 

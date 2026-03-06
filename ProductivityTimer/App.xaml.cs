@@ -20,9 +20,11 @@ namespace ProductivityTimer
 
         protected override async void OnStart()
         {
+            await Shell.Current.GoToAsync("//MainPage");
+
             base.OnStart();
             try
-            {
+            { // setting up database tables
                 await _databaseInitializer.InitializeAsync();
             }
             catch (Exception ex)

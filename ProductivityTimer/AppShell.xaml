@@ -4,11 +4,20 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ProductivityTimer"
+    xmlns:views="clr-namespace:ProductivityTimer.View" 
     Title="ProductivityTimer">
 
     <ShellContent
         Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:WorkPage}"
+        Route="WorkPage" />
+
+    <ShellContent
+        ContentTemplate="{DataTemplate views:HistoryPage}"
+        Route="HistoryPage" />
 
 </Shell>
