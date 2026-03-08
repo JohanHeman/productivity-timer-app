@@ -34,7 +34,9 @@ namespace ProductivityTimer
             builder.Services.AddTransient<WorkPage>();
             builder.Services.AddTransient<HistoryPageViewModel>();
             builder.Services.AddTransient<HistoryPage>();
-            builder.Services.AddHttpClient<QuoteAPIService>(client =>
+
+            // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService
+            builder.Services.AddHttpClient<IQuoteService, QuoteService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.api-ninjas.com/");
                 var config = new ConfigurationBuilder().AddUserSecrets<App>().Build();

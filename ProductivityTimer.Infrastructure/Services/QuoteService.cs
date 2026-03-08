@@ -1,22 +1,24 @@
 using Microsoft.Extensions.Logging;
 using ProductivityTimer.Infrastructure.Services.APIModels;
+using ProductivityTimer.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using ProductivityTimer.Domain.Interfaces;
 
 namespace ProductivityTimer.Infrastructure.Services
 {
-    public class QuoteAPIService
+    public class QuoteService : IQuoteService
     {
         private readonly HttpClient _client;
-        private readonly ILogger<QuoteAPIService> _logger;
-        public QuoteAPIService(HttpClient client, ILogger<QuoteAPIService> logger)
+        private readonly ILogger<QuoteService> _logger;
+        public QuoteService(HttpClient client, ILogger<QuoteService> logger)
         {
             _client = client;
             _logger = logger;
         }
-        public async Task<QuoteResponse> GetQuote()
+        public async Task<Quote> GetQuoteAsync()
         {
             string uri = GetRandomCategory();
 
@@ -28,12 +30,18 @@ namespace ProductivityTimer.Infrastructure.Services
                 {
                     throw new InvalidOperationException("Failed to get quote from API");
                 }
+
                 var responseString = await response.Content.ReadAsStringAsync();
                 var quotes = JsonSerializer.Deserialize<List<QuoteResponse>>(responseString);
 
                 if (quotes != null && quotes.Count > 0)
                 {
-                    return quotes[0];
+                    var quote = new Quote
+                    {
+                        Text = quotes[0].Quote,
+                        Author = quotes[0].Author
+                    };
+                    return quote;
                 }
                 throw new InvalidOperationException("Failed to get quote from API");
             }
