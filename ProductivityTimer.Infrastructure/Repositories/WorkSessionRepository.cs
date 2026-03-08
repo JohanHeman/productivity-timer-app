@@ -2,7 +2,7 @@
 using ProductivityTimer.Domain.Interfaces;
 using ProductivityTimer.Domain.Models.Entities;
 using ProductivityTimer.Infrastructure.Data;
-using ProductivityTimer.Infrastructure.Data.Models;
+using ProductivityTimer.Infrastructure.Data.Models.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Text;

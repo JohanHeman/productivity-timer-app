@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using SQLite;
 
-namespace ProductivityTimer.Infrastructure.Data.Models
+namespace ProductivityTimer.Infrastructure.Data.Models.DbModels
 {
-    public class ToDoListRecord
+    public class DailyHabitListRecord
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

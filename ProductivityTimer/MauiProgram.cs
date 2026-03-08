@@ -5,6 +5,7 @@ using ProductivityTimer.Infrastructure.Services;
 using ProductivityTimer.Infrastructure.Repositories;
 using ProductivityTimer.Views;
 using ProductivityTimer.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace ProductivityTimer
 {
@@ -33,7 +34,12 @@ namespace ProductivityTimer
             builder.Services.AddTransient<WorkPage>();
             builder.Services.AddTransient<HistoryPageViewModel>();
             builder.Services.AddTransient<HistoryPage>();
-
+            builder.Services.AddHttpClient<QuoteAPIService>(client =>
+            {
+                client.BaseAddress = new Uri("https://api.api-ninjas.com/");
+                var config = new ConfigurationBuilder().AddUserSecrets<App>().Build();
+                client.DefaultRequestHeaders.Add("X-Api-Key", config["ApiNinjas:ApiKey"]);
+            });
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
