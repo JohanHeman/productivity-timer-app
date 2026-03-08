@@ -11,5 +11,6 @@ namespace ProductivityTimer.Application.Interfaces
         void StopTimer();
         void ResetTimer();
         TimeSpan GetRemainingTime();
+        void ContinueTimer();
     }
 }
