@@ -1,11 +1,11 @@
 using Microsoft.Extensions.Logging;
-using ProductivityTimer.Infrastructure.Services.APIModels;
 using ProductivityTimer.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using ProductivityTimer.Domain.Interfaces;
+using ProductivityTimer.Infrastructure.APIModels;
 
 namespace ProductivityTimer.Infrastructure.Services
 {

@@ -4,13 +4,14 @@ using ProductivityTimer.Infrastructure.Services;
 
 namespace ProductivityTimer
 {
-    public partial class App : Application
+    public partial class App : Microsoft.Maui.Controls.Application
     {
         private readonly DatabaseInitializer _databaseInitializer;
         public App(DatabaseInitializer databaseInitializer)
         {
             InitializeComponent();
             _databaseInitializer = databaseInitializer;
+            
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

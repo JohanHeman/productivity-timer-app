@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
+using ProductivityTimer.Application.Services;
 using ProductivityTimer.Domain.Interfaces;
-using ProductivityTimer.UseCase.UseCases;
 
 namespace ProductivityTimer.ViewModels
 {
@@ -13,16 +13,16 @@ namespace ProductivityTimer.ViewModels
     {
         private readonly IQuoteService _quoteService;
         private readonly ILogger<MainPageViewModel> _logger;
-        private readonly GetQuoteUseCase _getQuoteUseCase;
+        private readonly QuoteApplicationService _getQuoteUseCase;
         public ICommand WorkNavigationCommand { get; }
         public ICommand HistoryNavigationCommand { get; }
         public ICommand QuitCommand { get; }
 
-        public MainPageViewModel(IQuoteService quoteService, ILogger<MainPageViewModel> logger, GetQuoteUseCase getQuoteUseCase)
+        public MainPageViewModel(IQuoteService quoteService, ILogger<MainPageViewModel> logger, QuoteApplicationService getQuoteUseCase)
         {
             WorkNavigationCommand = new Command(async () => await GoToWorkAsync());
             HistoryNavigationCommand = new Command(async () => await GoToHistoryAsync());
-            QuitCommand = new Command(() => Application.Current?.Quit());
+            QuitCommand = new Command(() => Microsoft.Maui.Controls.Application.Current?.Quit());
             _quoteText = string.Empty;
             _quoteService = quoteService;
             _logger = logger;

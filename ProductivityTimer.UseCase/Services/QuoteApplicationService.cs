@@ -4,13 +4,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductivityTimer.UseCase.UseCases
+namespace ProductivityTimer.Application.Services
 {
-    public class GetQuoteUseCase
+    public class QuoteApplicationService
     {
         private readonly IQuoteService _quoteService;
 
-        public GetQuoteUseCase(IQuoteService quoteService)
+        public QuoteApplicationService(IQuoteService quoteService)
         {
             _quoteService = quoteService;
         }

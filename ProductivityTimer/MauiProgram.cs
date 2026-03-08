@@ -6,7 +6,7 @@ using ProductivityTimer.Infrastructure.Repositories;
 using ProductivityTimer.Views;
 using ProductivityTimer.ViewModels;
 using Microsoft.Extensions.Configuration;
-using ProductivityTimer.UseCase.UseCases;
+using ProductivityTimer.Application.Services;
 
 namespace ProductivityTimer
 {
@@ -35,7 +35,7 @@ namespace ProductivityTimer
             builder.Services.AddTransient<WorkPage>();
             builder.Services.AddTransient<HistoryPageViewModel>();
             builder.Services.AddTransient<HistoryPage>();
-            builder.Services.AddTransient<GetQuoteUseCase>();
+            builder.Services.AddTransient<QuoteApplicationService>();
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService
             builder.Services.AddHttpClient<IQuoteService, QuoteService>(client =>
             {
