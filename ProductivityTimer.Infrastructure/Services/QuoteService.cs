@@ -20,7 +20,7 @@ namespace ProductivityTimer.Infrastructure.Services
         }
         public async Task<Quote> GetQuoteAsync()
         {
-            string uri = GetRandomCategory();
+            string uri = "v2/randomquotes?categories=success,wisdom,life,inspirational";
 
             try
             {
@@ -50,30 +50,6 @@ namespace ProductivityTimer.Infrastructure.Services
                 _logger.LogError(ex, "Failed to get quote from API");
                 throw;
             }
-        }
-
-        private string GetRandomCategory()
-        {
-            int num = Random.Shared.Next(4);
-            string category;
-            switch (num)
-            {
-                case 0:
-                    category = "inspirational";
-                    break;
-                case 1:
-                    category = "life";
-                    break;
-                case 2:
-                    category = "wisdom";
-                    break;
-                case 3:
-                default:
-                    category = "success";
-                    break;
-            }
-
-            return $"v2/quotes?category={category}";
         }
     }
 }
