@@ -23,7 +23,7 @@
             HorizontalTextAlignment="Center"
             FontSize="18"
             Margin="0,0,0,20"
-        Text="Timer will be displayed here"></Label>
+            Text="{Binding TimerText}" />
         <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
             <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
                 <Border.Background>
@@ -39,6 +39,7 @@
             <Button
                     Text="Start Working / Stop working"
                     Style="{StaticResource GradientButtonText}"
+                    Command="{Binding StartWorkTimerCommand}"
                     />
         </Grid>
 
@@ -57,7 +58,7 @@
             <Button
                     Text="Pause timer / Start timer"
                     Style="{StaticResource GradientButtonText}"
-                    Command="{Binding WorkNavigationCommand}"
+                    Command="{Binding PauseWorkTimerCommand}"
                     />
         </Grid>
 
