@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using ProductivityTimer.Domain.Interfaces;
+using ProductivityTimer.UseCase.UseCases;
 
 namespace ProductivityTimer.ViewModels
 {
@@ -12,11 +13,12 @@ namespace ProductivityTimer.ViewModels
     {
         private readonly IQuoteService _quoteService;
         private readonly ILogger<MainPageViewModel> _logger;
+        private readonly GetQuoteUseCase _getQuoteUseCase;
         public ICommand WorkNavigationCommand { get; }
         public ICommand HistoryNavigationCommand { get; }
         public ICommand QuitCommand { get; }
 
-        public MainPageViewModel(IQuoteService quoteService, ILogger<MainPageViewModel> logger)
+        public MainPageViewModel(IQuoteService quoteService, ILogger<MainPageViewModel> logger, GetQuoteUseCase getQuoteUseCase)
         {
             WorkNavigationCommand = new Command(async () => await GoToWorkAsync());
             HistoryNavigationCommand = new Command(async () => await GoToHistoryAsync());
@@ -24,6 +26,7 @@ namespace ProductivityTimer.ViewModels
             _quoteText = string.Empty;
             _quoteService = quoteService;
             _logger = logger;
+            _getQuoteUseCase = getQuoteUseCase;
         }
 
         private string _quoteText { get; set; }
@@ -54,18 +57,12 @@ namespace ProductivityTimer.ViewModels
             await Shell.Current.GoToAsync("HistoryPage");
         }
 
-
-        private async Task GetQuoteAsync()
-        {
-            var quote = await _quoteService.GetQuoteAsync();
-            QuoteText = quote.Text;
-        }
-
         public async Task InitializeAsync()
         {
             try
             {
-                await GetQuoteAsync();
+                var quote = await _getQuoteUseCase.GetQuoteAsync();
+                QuoteText = $"{quote.Text}\n - {quote.Author}";
             }
             catch (Exception ex)
             {
