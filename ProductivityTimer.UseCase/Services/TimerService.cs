@@ -10,20 +10,23 @@ namespace ProductivityTimer.Application.Services
     {
         private TimeSpan _remainingTime;
         private TimeStateEnum.TimeState _timerState = TimeStateEnum.TimeState.stopped;
-        public void ContinueTimer() => SetState(TimeStateEnum.TimeState.running);
+        public async Task ContinueTimerAsync() => await SetState(TimeStateEnum.TimeState.running);
         public TimeSpan GetRemainingTime() => _remainingTime;
-        public void PauseTimer() => SetState(TimeStateEnum.TimeState.paused);
-        public void ResetTimer() => SetState(TimeStateEnum.TimeState.stopped);
-        public void StartTimer() => SetState(TimeStateEnum.TimeState.running);
-        public void StopTimer() => SetState(TimeStateEnum.TimeState.stopped);
+        public async Task PauseTimerAsync() => await SetState(TimeStateEnum.TimeState.paused);
+        public async Task ResetTimerAsync() => await SetState(TimeStateEnum.TimeState.stopped);
+        public async Task StartTimerAsync() => await SetState(TimeStateEnum.TimeState.running);
+        public async Task StopTimerAsync() => await SetState(TimeStateEnum.TimeState.stopped);
 
-        private void SetState(TimeStateEnum.TimeState state)
+        public event Action<TimeSpan>? TimeChanged;
+
+        private async Task SetState(TimeStateEnum.TimeState state)
         {
             switch (state)
             {
                 case TimeStateEnum.TimeState.running:
                     _timerState = TimeStateEnum.TimeState.running;
                     // make timer run 
+                    await StartTicking(5000); 
                     break;
                 case TimeStateEnum.TimeState.paused:
                     _timerState = TimeStateEnum.TimeState.paused;
@@ -39,6 +42,19 @@ namespace ProductivityTimer.Application.Services
 
         }
 
+        private async Task StartTicking(int time)
+        {
+            _remainingTime = TimeSpan.FromSeconds(time);
+            while (_timerState == TimeStateEnum.TimeState.running && _remainingTime > TimeSpan.Zero)
+            {
+                await Task.Delay(1000);
+                if (_timerState != TimeStateEnum.TimeState.running) break;
 
+                _remainingTime = _remainingTime.Subtract(TimeSpan.FromSeconds(1));
+                TimeChanged?.Invoke(_remainingTime); // will notify the UI that the time has changed
+
+
+            }
+        }
     }
 }

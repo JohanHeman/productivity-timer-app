@@ -6,11 +6,12 @@ namespace ProductivityTimer.Application.Interfaces
 {
     public interface ITimerService
     {
-        void StartTimer();
-        void PauseTimer();
-        void StopTimer();
-        void ResetTimer();
+        event Action<TimeSpan>? TimeChanged;
+        Task StartTimerAsync();
+        Task PauseTimerAsync();
+        Task StopTimerAsync();
+        Task ResetTimerAsync();
         TimeSpan GetRemainingTime();
-        void ContinueTimer();
+        Task ContinueTimerAsync();
     }
 }

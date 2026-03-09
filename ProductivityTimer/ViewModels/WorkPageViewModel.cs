@@ -13,10 +13,11 @@ namespace ProductivityTimer.ViewModels
         public WorkPageViewModel(ITimerService timerService)
         {
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());
-            StartWorkTimerCommand = new Command(StartWorkTimer);
-            StopWorkTimerCommand = new Command(StopWorkTimer);
-            PauseWorkTimerCommand = new Command(PauseWorkTimer);
+            StartWorkTimerCommand = new Command(async () => await StartWorkTimerAsync());
+            StopWorkTimerCommand = new Command(async () => await StopWorkTimerAsync());
+            PauseWorkTimerCommand = new Command(async () => await PauseWorkTimerAsync());
             _timerService = timerService;
+            _timerService.TimeChanged += OnTimeChanged;
         }
 
         private async Task GoToHomeAsync()
@@ -45,27 +46,18 @@ namespace ProductivityTimer.ViewModels
             {
                 _remainingTime = value;
                 OnPropertyChanged(nameof(RemainingTime));
+                OnPropertyChanged(nameof(TimerText));
             }
         }
-        public void UpdateTimer()
+
+        private void OnTimeChanged(TimeSpan time)
         {
-            RemainingTime = _timerService.GetRemainingTime();
-            OnPropertyChanged(nameof(TimerText));
+            RemainingTime = time;
         }
 
-        public void StartWorkTimer()
-        {
-            _timerService.StartTimer();
-        }
+        private async Task StartWorkTimerAsync() => await _timerService.StartTimerAsync();
+        private async Task StopWorkTimerAsync() => await _timerService.StopTimerAsync();
+        private async Task PauseWorkTimerAsync() => await _timerService.PauseTimerAsync();
 
-        public void StopWorkTimer()
-        {
-            _timerService.StopTimer();
-        }
-
-        public void PauseWorkTimer()
-        {
-            _timerService.PauseTimer();
-        }
     }
 }
