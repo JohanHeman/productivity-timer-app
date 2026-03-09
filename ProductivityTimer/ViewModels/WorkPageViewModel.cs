@@ -17,7 +17,7 @@ namespace ProductivityTimer.ViewModels
             StopWorkTimerCommand = new Command(async () => await StopWorkTimerAsync());
             PauseWorkTimerCommand = new Command(async () => await PauseWorkTimerAsync());
             _timerService = timerService;
-            _timerService.TimeChanged += OnTimeChanged;
+            _timerService.TimeChanged += OnTimeChanged; // subscribing to the event to be notified when the time changes
         }
 
         private async Task GoToHomeAsync()

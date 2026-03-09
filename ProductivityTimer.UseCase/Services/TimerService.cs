@@ -17,7 +17,7 @@ namespace ProductivityTimer.Application.Services
         public async Task StartTimerAsync() => await SetState(TimeStateEnum.TimeState.running);
         public async Task StopTimerAsync() => await SetState(TimeStateEnum.TimeState.stopped);
 
-        public event Action<TimeSpan>? TimeChanged;
+        public event Action<TimeSpan>? TimeChanged; // creates an event that sends a TimeSpan value
 
         private async Task SetState(TimeStateEnum.TimeState state)
         {
@@ -25,8 +25,7 @@ namespace ProductivityTimer.Application.Services
             {
                 case TimeStateEnum.TimeState.running:
                     _timerState = TimeStateEnum.TimeState.running;
-                    // make timer run 
-                    await StartTicking(5000); 
+                    await StartTicking(5000);
                     break;
                 case TimeStateEnum.TimeState.paused:
                     _timerState = TimeStateEnum.TimeState.paused;
@@ -51,9 +50,7 @@ namespace ProductivityTimer.Application.Services
                 if (_timerState != TimeStateEnum.TimeState.running) break;
 
                 _remainingTime = _remainingTime.Subtract(TimeSpan.FromSeconds(1));
-                TimeChanged?.Invoke(_remainingTime); // will notify the UI that the time has changed
-
-
+                TimeChanged?.Invoke(_remainingTime); // firing the event to notify that the time is changed 
             }
         }
     }
