@@ -8,17 +8,17 @@ namespace ProductivityTimer.Infrastructure.Data
     public class SQLiteConnectionFactory
     {
 
-        private static readonly SQLiteConnectionFactory InstanceOfThisClass = new SQLiteConnectionFactory();
+        private static readonly SQLiteConnectionFactory InstanceOfThisClass = new SQLiteConnectionFactory(); // creates an instance of this class 
 
 
         public static SQLiteConnectionFactory GetConnectionFactory()
         {
-            return InstanceOfThisClass;
+            return InstanceOfThisClass; // returns the instance to the class that needs it, and its allways the same instance that the other class uses (singleton)
         }
 
         private SQLiteConnectionFactory()
         {
-
+            //private so we can prevent other instances from being created outside of this class 
         }
 
 
