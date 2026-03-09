@@ -5,8 +5,23 @@ using System.Text;
 
 namespace ProductivityTimer.Infrastructure.Data
 {
-    public class SQLIteConnectionFactory
+    public class SQLiteConnectionFactory
     {
+
+        private static readonly SQLiteConnectionFactory InstanceOfThisClass = new SQLiteConnectionFactory();
+
+
+        public static SQLiteConnectionFactory GetConnectionFactory()
+        {
+            return InstanceOfThisClass;
+        }
+
+        private SQLiteConnectionFactory()
+        {
+
+        }
+
+
         private SQLiteAsyncConnection? _connection; // storing the connection if it exists 
         public SQLiteAsyncConnection CreateConnection()
         {

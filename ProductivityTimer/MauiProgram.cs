@@ -24,7 +24,6 @@ namespace ProductivityTimer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddSingleton<SQLIteConnectionFactory>();
             builder.Services.AddSingleton<DatabaseInitializer>();
             builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitRepository>();
             builder.Services.AddSingleton<ITaskRepository, TaskRepository>();

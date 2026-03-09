@@ -12,11 +12,9 @@ namespace ProductivityTimer.Infrastructure.Repositories
     public class WorkSessionRepository : IWorkSessionRepository
     {
         private readonly ILogger<WorkSessionRepository> _logger;
-        private readonly SQLIteConnectionFactory _connectionFactory;
-        public WorkSessionRepository(SQLIteConnectionFactory connectionFactory, ILogger<WorkSessionRepository> logger)
+        public WorkSessionRepository(ILogger<WorkSessionRepository> logger)
         {
             _logger = logger;
-            _connectionFactory = connectionFactory;
         }
 
 
@@ -26,7 +24,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             var dayEnd = dayStart.AddDays(1);
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= dayStart && r.StartedAt < dayEnd).ToListAsync(); // gets the sessions for one day 
                 return sessions.Sum(r => r.Duration.TotalHours); // sums the duration of the sessions for the day
             }
@@ -43,7 +41,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             var monthEnd = monthStart.AddMonths(1);
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= monthStart && r.StartedAt < monthEnd).ToListAsync();
                 return sessions.Sum(r => r.Duration.TotalHours);
             }
@@ -62,7 +60,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             var weekEnd = weekStart.AddDays(7);
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= weekStart && r.StartedAt < weekEnd).ToListAsync();
                 return sessions.Sum(r => r.Duration.TotalHours);
             }
@@ -77,7 +75,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 WorkSessionRecord record = new WorkSessionRecord { Duration = session.Duration, StartedAt = session.StartedAt, EndedAt = session.EndedAt };
                 await database.InsertAsync(record);
             }

@@ -12,17 +12,15 @@ namespace ProductivityTimer.Infrastructure.Repositories
     public class TaskRepository : ITaskRepository
     {
         private readonly ILogger<TaskRepository> _logger;
-        private readonly SQLIteConnectionFactory _connectionFactory;
-        public TaskRepository(SQLIteConnectionFactory connectionFactory, ILogger<TaskRepository> logger)
+        public TaskRepository(ILogger<TaskRepository> logger)
         {
-            _connectionFactory = connectionFactory;
             _logger = logger;
         }
         public async Task AddToListAsync(ToDoTask task)
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = new ToDoTaskRecord { TaskName = task.TaskName, ToDoListRecordId = task.ToDoListId };
                 await database.InsertAsync(record);
             }
@@ -37,7 +35,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = await database.Table<ToDoTaskRecord>().Where(r => r.Id == task.Id).FirstOrDefaultAsync();
                 if (record == null)
                 {
@@ -57,7 +55,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var records = await database.Table<ToDoTaskRecord>().ToListAsync();
                 return records.Select(r => new ToDoTask { Id = r.Id, TaskName = r.TaskName, ToDoListId = r.ToDoListRecordId, IsCompleted = r.IsCompleted }).ToList();
             }
@@ -72,7 +70,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = await database.Table<ToDoTaskRecord>().Where(r => r.Id == task.Id).FirstOrDefaultAsync();
                 if (record == null)
                 {
@@ -91,7 +89,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = await database.Table<ToDoTaskRecord>().Where(r => r.Id == task.Id).FirstOrDefaultAsync();
                 if (record == null)
                 {

@@ -14,10 +14,8 @@ namespace ProductivityTimer.Infrastructure.Repositories
     {
         // Mapping each record to the domain model
         private readonly ILogger<DailyHabitRepository> _logger;
-        private readonly SQLIteConnectionFactory _connectionFactory;
-        public DailyHabitRepository(SQLIteConnectionFactory connectionFactory, ILogger<DailyHabitRepository> logger)
+        public DailyHabitRepository(ILogger<DailyHabitRepository> logger)
         {
-            _connectionFactory = connectionFactory;
             _logger = logger;
         }
 
@@ -26,7 +24,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             try
             {
 
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = new DailyHabitRecord { Name = dailyHabit.Name, DailyHabitsListId = dailyHabit.DailyHabitsListId };
                 await database.InsertAsync(record);
 
@@ -44,7 +42,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = new HabitCompletionRecord { DailyHabitRecordId = dailyHabit.Id, CompletedDate = DateTime.Now };
                 await database.InsertAsync(record);
             }
@@ -60,7 +58,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             try
             {
 
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var records = await database.Table<DailyHabitRecord>().ToListAsync();
                 return records.Select(r => new DailyHabit { Id = r.Id, Name = r.Name, DailyHabitsListId = r.DailyHabitsListId }).ToList();
 
@@ -76,7 +74,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = await database.Table<DailyHabitRecord>().Where(r => r.Id == dailyHabit.Id).FirstOrDefaultAsync();
                 if (record == null)
                 {
@@ -94,7 +92,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 DailyHabitRecord record = new DailyHabitRecord()
                 {
                     Id = dailyHabit.Id,
@@ -113,7 +111,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-                var database = _connectionFactory.CreateConnection();
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var records = await database.Table<HabitCompletionRecord>()
                     .Where(r => r.DailyHabitRecordId == dailyHabit.Id)
                     .ToListAsync();

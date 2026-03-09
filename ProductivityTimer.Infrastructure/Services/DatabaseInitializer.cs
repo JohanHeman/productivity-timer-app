@@ -10,11 +10,10 @@ namespace ProductivityTimer.Infrastructure.Services
     public class DatabaseInitializer
     {
         // Responsible for initializing database and creating tables as needed
-        private readonly SQLIteConnectionFactory _connectionFactory;
-
-        public DatabaseInitializer(SQLIteConnectionFactory connectionFactory)
+        private readonly SQLiteConnectionFactory _connectionFactory;
+        public DatabaseInitializer()
         {
-            _connectionFactory = connectionFactory;
+            _connectionFactory = SQLiteConnectionFactory.GetConnectionFactory();
         }
 
         public async Task InitializeAsync()
