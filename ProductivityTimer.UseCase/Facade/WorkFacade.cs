@@ -59,5 +59,10 @@ namespace ProductivityTimer.Application.Facade
         {
             TimeChanged?.Invoke(time); // fires the event to the classes that are subscribed to it 
         }
+
+        public async Task ContinueAsync()
+        {
+            await _timerService.ContinueTimerAsync();
+        }
     }
 }

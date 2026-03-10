@@ -10,15 +10,19 @@ namespace ProductivityTimer.ViewModels
 {
     public class WorkPageViewModel : INotifyPropertyChanged
     {
+        private bool IsSessionStarted;
+        private bool IsSPaused;
+        public string SessionbuttonText => IsSessionStarted ? "Stop" : "Start";
+        public string PauseButtonText => IsSPaused ? "continue" : "Pause";
+
         private readonly IWorkFacade _workFacade;
         public WorkPageViewModel(IWorkFacade workfacade)
         {
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());
-            StartWorkTimerCommand = new Command(async () => await StartWorkTimerAsync());
-            StopWorkTimerCommand = new Command(async () => await StopWorkTimerAsync());
-            PauseWorkTimerCommand = new Command(async () => await PauseWorkTimerAsync());
             _workFacade = workfacade;
             _workFacade.TimeChanged += OnTimeChanged;
+            SessionCommand = new Command(async () => await OnSessionCommandExecuted());
+            StateCommand = new Command(async () => await OnStateCommandExecuted());
         }
 
         private async Task GoToHomeAsync()
@@ -27,10 +31,8 @@ namespace ProductivityTimer.ViewModels
         }
 
         public ICommand NavigateHomeCommand { get; }
-        public ICommand StartWorkTimerCommand { get; }
-        public ICommand StopWorkTimerCommand { get; }
-        public ICommand PauseWorkTimerCommand { get; }
-
+        public ICommand SessionCommand { get; }
+        public ICommand StateCommand { get; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
@@ -55,10 +57,36 @@ namespace ProductivityTimer.ViewModels
         {
             RemainingTime = time;
         }
+        private async Task OnSessionCommandExecuted()
+        {
+            if (!IsSessionStarted)
+            {
+                IsSessionStarted = true;
+                OnPropertyChanged(nameof(SessionbuttonText));
+                await _workFacade.StartAsync();
+            }
+            else
+            {
+                IsSessionStarted = false;
+                OnPropertyChanged(nameof(SessionbuttonText));
+                await _workFacade.StopAndSaveAsync();
+            }
+        }
 
-        private async Task StartWorkTimerAsync() => await _workFacade.StartAsync();
-        private async Task StopWorkTimerAsync() => await _workFacade.StopAndSaveAsync();
-        private async Task PauseWorkTimerAsync() => await _workFacade.PauseAsync();
-
+        private async Task OnStateCommandExecuted()
+        {
+            if (!IsSPaused)
+            {
+                IsSPaused = true;
+                OnPropertyChanged(nameof(PauseButtonText));
+                await _workFacade.PauseAsync();
+            }
+            else
+            {
+                IsSPaused = false;
+                OnPropertyChanged(nameof(PauseButtonText));
+                await _workFacade.ContinueAsync();
+            }
+        }
     }
 }

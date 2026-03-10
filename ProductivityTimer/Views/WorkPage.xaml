@@ -37,9 +37,9 @@
                 </Border.Shadow>
             </Border>
             <Button
-                    Text="Start Working / Stop working"
+                    Text="{Binding SessionbuttonText}"
                     Style="{StaticResource GradientButtonText}"
-                    Command="{Binding StartWorkTimerCommand}"
+                    Command="{Binding SessionCommand}"
                     />
         </Grid>
 
@@ -56,9 +56,9 @@
                 </Border.Shadow>
             </Border>
             <Button
-                    Text="Pause timer / Start timer"
+                    Text="{Binding PauseButtonText}"
                     Style="{StaticResource GradientButtonText}"
-                    Command="{Binding PauseWorkTimerCommand}"
+                    Command="{Binding StateCommand}"
                     />
         </Grid>
 

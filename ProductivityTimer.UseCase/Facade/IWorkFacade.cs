@@ -9,6 +9,7 @@ namespace ProductivityTimer.Application.Facade
         event Action<TimeSpan>? TimeChanged;
         Task StartAsync();
         Task PauseAsync();
+        Task ContinueAsync();
         Task StopAndSaveAsync();
 
         TimeSpan GetRemainingTime();
