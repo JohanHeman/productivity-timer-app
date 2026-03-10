@@ -1,14 +1,13 @@
-﻿using ProductivityTimer.Application.Facade;
-using ProductivityTimer.Application.Interfaces;
+﻿using ProductivityTimer.Application.Interfaces;
 using ProductivityTimer.Domain.Interfaces;
 using ProductivityTimer.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductivityTimer.Application
+namespace ProductivityTimer.Application.Facade
 {
-    internal class WorkFacade : IWorkFacade
+    public class WorkFacade : IWorkFacade
     {
         private DateTime? _StartedSessionAt;
         private readonly ITimerService _timerService;
@@ -18,6 +17,7 @@ namespace ProductivityTimer.Application
         {
             _timerService = timerService;
             _workSessionRepository = workSessionRepository;
+            _timerService.TimeChanged += OnTimeChanged;
         }
         public event Action<TimeSpan>? TimeChanged;
 
@@ -54,6 +54,10 @@ namespace ProductivityTimer.Application
                 EndedAt = endedAt,
                 Duration = endedAt - startedAt
             };
+        }
+        private void OnTimeChanged(TimeSpan time)
+        {
+            TimeChanged?.Invoke(time); // fires the event to the classes that are subscribed to it 
         }
     }
 }

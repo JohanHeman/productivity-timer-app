@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ProductivityTimer.Application.Facade
 {
-    internal interface IWorkFacade
+    public interface IWorkFacade
     {
         event Action<TimeSpan>? TimeChanged;
         Task StartAsync();

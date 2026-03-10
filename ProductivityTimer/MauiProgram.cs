@@ -8,6 +8,7 @@ using ProductivityTimer.ViewModels;
 using Microsoft.Extensions.Configuration;
 using ProductivityTimer.Application.Services;
 using ProductivityTimer.Application.Interfaces;
+using ProductivityTimer.Application.Facade;
 
 namespace ProductivityTimer
 {
@@ -37,6 +38,7 @@ namespace ProductivityTimer
             builder.Services.AddTransient<HistoryPage>();
             builder.Services.AddTransient<QuoteApplicationService>();
             builder.Services.AddTransient<ITimerService, TimerService>();
+            builder.Services.AddTransient<IWorkFacade, WorkFacade>();
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService
             builder.Services.AddHttpClient<IQuoteService, QuoteService>(client =>
             {

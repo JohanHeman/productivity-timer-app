@@ -1,4 +1,5 @@
-﻿using ProductivityTimer.Application.Interfaces;
+﻿using ProductivityTimer.Application.Facade;
+using ProductivityTimer.Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,15 +10,15 @@ namespace ProductivityTimer.ViewModels
 {
     public class WorkPageViewModel : INotifyPropertyChanged
     {
-        private readonly ITimerService _timerService;
-        public WorkPageViewModel(ITimerService timerService)
+        private readonly IWorkFacade _workFacade;
+        public WorkPageViewModel(IWorkFacade workfacade)
         {
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());
             StartWorkTimerCommand = new Command(async () => await StartWorkTimerAsync());
             StopWorkTimerCommand = new Command(async () => await StopWorkTimerAsync());
             PauseWorkTimerCommand = new Command(async () => await PauseWorkTimerAsync());
-            _timerService = timerService;
-            _timerService.TimeChanged += OnTimeChanged; // subscribing to the event to be notified when the time changes
+            _workFacade = workfacade;
+            _workFacade.TimeChanged += OnTimeChanged;
         }
 
         private async Task GoToHomeAsync()
@@ -55,9 +56,9 @@ namespace ProductivityTimer.ViewModels
             RemainingTime = time;
         }
 
-        private async Task StartWorkTimerAsync() => await _timerService.StartTimerAsync();
-        private async Task StopWorkTimerAsync() => await _timerService.StopTimerAsync();
-        private async Task PauseWorkTimerAsync() => await _timerService.PauseTimerAsync();
+        private async Task StartWorkTimerAsync() => await _workFacade.StartAsync();
+        private async Task StopWorkTimerAsync() => await _workFacade.StopAndSaveAsync();
+        private async Task PauseWorkTimerAsync() => await _workFacade.PauseAsync();
 
     }
 }
