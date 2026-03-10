@@ -8,13 +8,25 @@ namespace ProductivityTimer.Application.Services
 {
     public class TimerService : ITimerService
     {
+        private bool _isTicking;
         private TimeSpan _remainingTime;
+        private TimeSpan _defaultTime = TimeSpan.FromMinutes(50);
         private TimeStateEnum.TimeState _timerState = TimeStateEnum.TimeState.stopped;
-        public async Task ContinueTimerAsync() => await SetState(TimeStateEnum.TimeState.running);
+        public async Task ContinueTimerAsync()
+        {
+            if (_remainingTime <= TimeSpan.Zero)
+                _remainingTime = _defaultTime;
+            await SetState(TimeStateEnum.TimeState.running);
+        }
         public TimeSpan GetRemainingTime() => _remainingTime;
         public async Task PauseTimerAsync() => await SetState(TimeStateEnum.TimeState.paused);
         public async Task ResetTimerAsync() => await SetState(TimeStateEnum.TimeState.stopped);
-        public async Task StartTimerAsync() => await SetState(TimeStateEnum.TimeState.running);
+        public async Task StartTimerAsync()
+        {
+            _remainingTime = _defaultTime;
+            TimeChanged?.Invoke(_remainingTime);
+            await SetState(TimeStateEnum.TimeState.running);
+        }
         public async Task StopTimerAsync() => await SetState(TimeStateEnum.TimeState.stopped);
 
         public event Action<TimeSpan>? TimeChanged; // creates an event that sends a TimeSpan value
@@ -25,11 +37,11 @@ namespace ProductivityTimer.Application.Services
             {
                 case TimeStateEnum.TimeState.running:
                     _timerState = TimeStateEnum.TimeState.running;
-                    await StartTicking(5000);
+                    if (!_isTicking)
+                        await StartTickingAsync();
                     break;
                 case TimeStateEnum.TimeState.paused:
                     _timerState = TimeStateEnum.TimeState.paused;
-                    // make timer pause
                     break;
                 case TimeStateEnum.TimeState.stopped:
                     _timerState = TimeStateEnum.TimeState.stopped;
@@ -41,16 +53,23 @@ namespace ProductivityTimer.Application.Services
 
         }
 
-        private async Task StartTicking(int time)
+        private async Task StartTickingAsync()
         {
-            _remainingTime = TimeSpan.FromSeconds(time);
-            while (_timerState == TimeStateEnum.TimeState.running && _remainingTime > TimeSpan.Zero)
+            _isTicking = true;
+            try
             {
-                await Task.Delay(1000);
-                if (_timerState != TimeStateEnum.TimeState.running) break;
+                while (_isTicking && _timerState == TimeStateEnum.TimeState.running && _remainingTime > TimeSpan.Zero)
+                {
+                    await Task.Delay(1000);
+                    if (_timerState != TimeStateEnum.TimeState.running) break;
 
-                _remainingTime = _remainingTime.Subtract(TimeSpan.FromSeconds(1));
-                TimeChanged?.Invoke(_remainingTime); // firing the event to notify that the time is changed 
+                    _remainingTime -= TimeSpan.FromSeconds(1);
+                    TimeChanged?.Invoke(_remainingTime); // firing the event to notify that the time is changed 
+                }
+            }
+            finally
+            {
+                _isTicking = false; // if loop ends stop ticking 
             }
         }
     }

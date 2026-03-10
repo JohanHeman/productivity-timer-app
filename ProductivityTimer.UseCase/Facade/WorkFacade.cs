@@ -39,15 +39,21 @@ namespace ProductivityTimer.Application
                 return;
 
             var endedAt = DateTime.Now;
-            var session = new WorkSession
-            {
-                StartedAt = _StartedSessionAt.Value,
-                EndedAt = endedAt,
-                Duration = endedAt - _StartedSessionAt.Value
-            };
 
+            var session = CreateSession(_StartedSessionAt.Value, endedAt);
             await _workSessionRepository.SaveSessionAsync(session);
             _StartedSessionAt = null;
+        }
+
+
+        private WorkSession CreateSession(DateTime startedAt, DateTime endedAt)
+        {
+            return new WorkSession
+            {
+                StartedAt = startedAt,
+                EndedAt = endedAt,
+                Duration = endedAt - startedAt
+            };
         }
     }
 }
