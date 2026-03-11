@@ -9,7 +9,7 @@ namespace ProductivityTimer.Application.Facade
 {
     public class WorkFacade : IWorkFacade
     {
-        private DateTime? _StartedSessionAt;
+        private DateTime? _StartedSessionAt; // keep track of the start time of the session
         private readonly ITimerService _timerService;
 
         private readonly IWorkSessionRepository _workSessionRepository;
@@ -19,9 +19,10 @@ namespace ProductivityTimer.Application.Facade
             _workSessionRepository = workSessionRepository;
             _timerService.TimeChanged += OnTimeChanged;
         }
-        public event Action<TimeSpan>? TimeChanged;
+        public event Action<TimeSpan>? TimeChanged; // event set up to notify the classes that are subscribed to it
 
-        public TimeSpan GetRemainingTime() => _timerService.GetRemainingTime();
+        // set up methods with more readable names for the UI   
+        public TimeSpan GetCurrentRemainingTime() => _timerService.GetRemainingTime();
 
         public async Task PauseAsync() => await _timerService.PauseTimerAsync();
 

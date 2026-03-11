@@ -15,7 +15,7 @@ namespace ProductivityTimer.ViewModels
         public string SessionbuttonText => IsSessionStarted ? "Stop" : "Start";
         public string PauseButtonText => IsSPaused ? "continue" : "Pause";
 
-        private readonly IWorkFacade _workFacade;
+        private readonly IWorkFacade _workFacade; // creating instance of facade and calling more readable methods for the UI
         public WorkPageViewModel(IWorkFacade workfacade)
         {
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());

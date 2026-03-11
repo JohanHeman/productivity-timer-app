@@ -12,6 +12,6 @@ namespace ProductivityTimer.Application.Facade
         Task ContinueAsync();
         Task StopAndSaveAsync();
 
-        TimeSpan GetRemainingTime();
+        TimeSpan GetCurrentRemainingTime();
     }
 }
