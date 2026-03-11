@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration;
 using ProductivityTimer.Application.Services;
 using ProductivityTimer.Application.Interfaces;
 using ProductivityTimer.Application.Facade;
-
+using Plugin.Maui.Audio;
 namespace ProductivityTimer
 {
     public static class MauiProgram
@@ -40,6 +40,10 @@ namespace ProductivityTimer
             builder.Services.AddTransient<ITimerService, TimerService>();
             builder.Services.AddTransient<IWorkFacade, WorkFacade>();
             builder.Services.AddTransient<IStatisticService, StatisticService>();
+
+            builder.Services.AddSingleton(AudioManager.Current);
+
+
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService
             builder.Services.AddHttpClient<IQuoteService, QuoteService>(client =>
             {

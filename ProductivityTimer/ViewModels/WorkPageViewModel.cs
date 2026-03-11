@@ -10,6 +10,7 @@ namespace ProductivityTimer.ViewModels
 {
     public class WorkPageViewModel : INotifyPropertyChanged
     {
+        private bool _isTimerZero;
         private bool IsSessionStarted;
         private bool IsSPaused;
         public string SessionbuttonText => IsSessionStarted ? "Stop" : "Start";
@@ -20,7 +21,7 @@ namespace ProductivityTimer.ViewModels
         {
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());
             _workFacade = workfacade;
-            _workFacade.TimeChanged += OnTimeChanged;
+            _workFacade.TimeChanged += OnTimeChanged; // subscribe to the event
             SessionCommand = new Command(async () => await OnSessionCommandExecuted());
             StateCommand = new Command(async () => await OnStateCommandExecuted());
         }
@@ -56,6 +57,12 @@ namespace ProductivityTimer.ViewModels
         private void OnTimeChanged(TimeSpan time)
         {
             RemainingTime = time;
+
+            if (time == TimeSpan.Zero)
+            {
+                _isTimerZero = true;
+                // play the alarm sound 
+            }
         }
         private async Task OnSessionCommandExecuted()
         {

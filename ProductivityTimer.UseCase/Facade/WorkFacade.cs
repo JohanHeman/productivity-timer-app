@@ -17,7 +17,7 @@ namespace ProductivityTimer.Application.Facade
         {
             _timerService = timerService;
             _workSessionRepository = workSessionRepository;
-            _timerService.TimeChanged += OnTimeChanged;
+            _timerService.TimeChanged += OnTimeChanged; // subscribe to the event 
         }
         public event Action<TimeSpan>? TimeChanged; // event set up to notify the classes that are subscribed to it and pass a timespan value 
 
