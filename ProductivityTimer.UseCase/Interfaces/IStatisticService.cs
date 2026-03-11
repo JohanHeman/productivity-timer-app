@@ -7,6 +7,6 @@ namespace ProductivityTimer.Application.Interfaces
 {
     public interface IStatisticService
     {
-        Task<double> GetTotalHoursAsync(DateTime date, TimeRange range);
+        Task<TimeSpan> GetTotalHoursAsync(DateTime date, TimeRange range);
     }
 }

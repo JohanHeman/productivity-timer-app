@@ -39,6 +39,7 @@ namespace ProductivityTimer
             builder.Services.AddTransient<QuoteApplicationService>();
             builder.Services.AddTransient<ITimerService, TimerService>();
             builder.Services.AddTransient<IWorkFacade, WorkFacade>();
+            builder.Services.AddTransient<IStatisticService, StatisticService>();
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService
             builder.Services.AddHttpClient<IQuoteService, QuoteService>(client =>
             {

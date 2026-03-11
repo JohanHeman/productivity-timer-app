@@ -18,7 +18,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         }
 
 
-        public async Task<double> GetTotalHoursForDayAsync(DateTime date)
+        public async Task<TimeSpan> GetTotalHoursForDayAsync(DateTime date)
         {
             var dayStart = date.Date;
             var dayEnd = dayStart.AddDays(1);
@@ -26,7 +26,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             {
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= dayStart && r.StartedAt < dayEnd).ToListAsync(); // gets the sessions for one day 
-                return sessions.Sum(r => r.Duration.TotalHours); // sums the duration of the sessions for the day
+                return TimeSpan.FromHours(sessions.Sum(r => r.Duration.TotalHours)); // converts the total hours into a timespan
             }
             catch (SQLite.SQLiteException ex)
             {
@@ -35,7 +35,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             }
         }
 
-        public async Task<double> GetTotalHoursForMonthAsync(DateTime date)
+        public async Task<TimeSpan> GetTotalHoursForMonthAsync(DateTime date)
         {
             var monthStart = new DateTime(date.Year, date.Month, 1);
             var monthEnd = monthStart.AddMonths(1);
@@ -43,7 +43,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             {
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= monthStart && r.StartedAt < monthEnd).ToListAsync();
-                return sessions.Sum(r => r.Duration.TotalHours);
+                return TimeSpan.FromHours(sessions.Sum(r => r.Duration.TotalHours)); // converts the total hours into a timespan
             }
             catch (SQLite.SQLiteException ex)
             {
@@ -52,7 +52,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             }
         }
 
-        public async Task<double> GetTotalHoursForWeekAsync(DateTime date)
+        public async Task<TimeSpan> GetTotalHoursForWeekAsync(DateTime date)
         {
             var day = date.Date; // todays date 
             var daysSinceMonday = ((int)day.DayOfWeek + 6) % 7; // converts dayofweek enum into an int, adds 6 to it so we can run % 7 to see the difference between today and monday example sunday + 6 = 6 % 7 = 6
@@ -62,7 +62,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             {
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var sessions = await database.Table<WorkSessionRecord>().Where(r => r.StartedAt >= weekStart && r.StartedAt < weekEnd).ToListAsync();
-                return sessions.Sum(r => r.Duration.TotalHours);
+                return TimeSpan.FromHours(sessions.Sum(r => r.Duration.TotalHours)); // converts the total hours into a timespan
             }
             catch (SQLite.SQLiteException ex)
             {

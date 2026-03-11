@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ProductivityTimer.Application.Services
 {
-    internal class StatisticService : IStatisticService
+    public class StatisticService : IStatisticService
     {
         private readonly IWorkSessionRepository _workSessionRepository;
         public StatisticService(IWorkSessionRepository workSessionRepository)
@@ -15,7 +15,7 @@ namespace ProductivityTimer.Application.Services
             _workSessionRepository = workSessionRepository;
         }
 
-        public async Task<double> GetTotalHoursAsync(DateTime date, TimeRange range)
+        public async Task<TimeSpan> GetTotalHoursAsync(DateTime date, TimeRange range)
         {
             // switch expression for the different time ranges from the enum TimeRange
             return range switch
