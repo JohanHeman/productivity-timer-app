@@ -80,8 +80,8 @@ namespace ProductivityTimer.ViewModels
 
                 if (_audioPlayer == null)
                 {
-                    var stream = await FileSystem.OpenAppPackageFileAsync("Alarm.mp3");
-                    _audioPlayer = _audioManager.CreatePlayer(stream);
+                    var stream = await FileSystem.OpenAppPackageFileAsync("Alarm.mp3"); // opens the alarm sound file
+                    _audioPlayer = _audioManager.CreatePlayer(stream); // creates a player for the alarm sound
                 }
                 OnPropertyChanged(nameof(SessionbuttonText));
                 await _workFacade.StartAsync();
