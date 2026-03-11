@@ -45,7 +45,6 @@ namespace ProductivityTimer.Application.Services
                     break;
                 case TimeStateEnum.TimeState.stopped:
                     _timerState = TimeStateEnum.TimeState.stopped;
-                    // make timer stop
                     break;
                 default:
                     throw new ArgumentException("Invalid state");

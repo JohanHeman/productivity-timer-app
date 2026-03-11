@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ProductivityTimer.Application.Enums;
+using ProductivityTimer.Application.Services.Enums;
 
 namespace ProductivityTimer.Application.Interfaces
 {
