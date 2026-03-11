@@ -1,5 +1,5 @@
-﻿using ProductivityTimer.Application.Enums;
-using ProductivityTimer.Application.Interfaces;
+﻿using ProductivityTimer.Application.Interfaces;
+using ProductivityTimer.Application.Services.Enums;
 using ProductivityTimer.Domain.Interfaces;
 using System;
 using System.Collections.Generic;

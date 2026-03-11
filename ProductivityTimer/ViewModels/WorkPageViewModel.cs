@@ -1,4 +1,5 @@
-﻿using ProductivityTimer.Application.Facade;
+﻿using Plugin.Maui.Audio;
+using ProductivityTimer.Application.Facade;
 using ProductivityTimer.Application.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace ProductivityTimer.ViewModels
         private bool IsSPaused;
         public string SessionbuttonText => IsSessionStarted ? "Stop" : "Start";
         public string PauseButtonText => IsSPaused ? "continue" : "Pause";
-
+        private readonly IAudioManager _audioManager;
+        private IAudioPlayer? _audioPlayer;
         private readonly IWorkFacade _workFacade; // creating instance of facade and calling more readable methods for the UI
-        public WorkPageViewModel(IWorkFacade workfacade)
+        public WorkPageViewModel(IWorkFacade workfacade, IAudioManager audioManager)
         {
+            _audioManager = audioManager;
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());
             _workFacade = workfacade;
             _workFacade.TimeChanged += OnTimeChanged; // subscribe to the event
@@ -58,10 +61,14 @@ namespace ProductivityTimer.ViewModels
         {
             RemainingTime = time;
 
-            if (time == TimeSpan.Zero)
+            if (time <= TimeSpan.Zero && !_isTimerZero)
             {
                 _isTimerZero = true;
-                // play the alarm sound 
+                if (_audioPlayer != null)
+                {
+                    _audioPlayer.Stop();
+                    _audioPlayer.Play();
+                }
             }
         }
         private async Task OnSessionCommandExecuted()
@@ -69,6 +76,13 @@ namespace ProductivityTimer.ViewModels
             if (!IsSessionStarted)
             {
                 IsSessionStarted = true;
+                _isTimerZero = false;
+
+                if (_audioPlayer == null)
+                {
+                    var stream = await FileSystem.OpenAppPackageFileAsync("Alarm.mp3");
+                    _audioPlayer = _audioManager.CreatePlayer(stream);
+                }
                 OnPropertyChanged(nameof(SessionbuttonText));
                 await _workFacade.StartAsync();
             }

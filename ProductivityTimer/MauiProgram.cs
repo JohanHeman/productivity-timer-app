@@ -41,7 +41,7 @@ namespace ProductivityTimer
             builder.Services.AddTransient<IWorkFacade, WorkFacade>();
             builder.Services.AddTransient<IStatisticService, StatisticService>();
 
-            builder.Services.AddSingleton(AudioManager.Current);
+            builder.Services.AddSingleton(AudioManager.Current); // use the existing audio manager
 
 
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService

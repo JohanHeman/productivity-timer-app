@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
-using ProductivityTimer.Application.Enums;
 using ProductivityTimer.Application.Interfaces;
+using ProductivityTimer.Application.Services.Enums;
 
 namespace ProductivityTimer.ViewModels
 {
