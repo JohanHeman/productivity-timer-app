@@ -19,7 +19,7 @@ namespace ProductivityTimer.Application.Facade
             _workSessionRepository = workSessionRepository;
             _timerService.TimeChanged += OnTimeChanged;
         }
-        public event Action<TimeSpan>? TimeChanged; // event set up to notify the classes that are subscribed to it
+        public event Action<TimeSpan>? TimeChanged; // event set up to notify the classes that are subscribed to it and pass a timespan value 
 
         // set up methods with more readable names for the UI   
         public TimeSpan GetCurrentRemainingTime() => _timerService.GetRemainingTime();
@@ -58,7 +58,7 @@ namespace ProductivityTimer.Application.Facade
         }
         private void OnTimeChanged(TimeSpan time)
         {
-            TimeChanged?.Invoke(time); // fires the event to the classes that are subscribed to it 
+            TimeChanged?.Invoke(time); // fires the event to the classes that are subscribed to it and passes the timespan value
         }
 
         public async Task ContinueAsync()

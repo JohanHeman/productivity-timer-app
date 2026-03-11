@@ -8,6 +8,7 @@ namespace ProductivityTimer.Infrastructure.Data
     public class SQLiteConnectionFactory
     {
 
+        // Singleton design pattern class 
         private static readonly SQLiteConnectionFactory InstanceOfThisClass = new SQLiteConnectionFactory(); // creates an instance of this class 
 
 
@@ -22,7 +23,7 @@ namespace ProductivityTimer.Infrastructure.Data
         }
 
 
-        private SQLiteAsyncConnection? _connection; // storing the connection if it exists 
+        private SQLiteAsyncConnection? _connection; 
         public SQLiteAsyncConnection CreateConnection()
         {
             if (_connection != null) // if connection exists return that one instead of creating a new one
@@ -33,7 +34,7 @@ namespace ProductivityTimer.Infrastructure.Data
             Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
             "ProductivityTimer.db3");
 
-            _connection = new SQLiteAsyncConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
+            _connection = new SQLiteAsyncConnection(dbPath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create); // enables reading and writing to tables, creating table if it dosent exist 
             return _connection;
         }
     }

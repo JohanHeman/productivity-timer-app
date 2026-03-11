@@ -64,7 +64,7 @@ namespace ProductivityTimer.Application.Services
                     if (_timerState != TimeStateEnum.TimeState.running) break;
 
                     _remainingTime -= TimeSpan.FromSeconds(1);
-                    TimeChanged?.Invoke(_remainingTime); // firing the event to notify that the time is changed 
+                    TimeChanged?.Invoke(_remainingTime); // firing the event to notify that the time is changed and passes the remainingtime value
                 }
             }
             finally

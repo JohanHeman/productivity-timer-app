@@ -34,22 +34,29 @@ namespace ProductivityTimer.ViewModels
         {
             TotalHours = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Day);
             OnPropertyChanged(nameof(TotalHours));
+            OnPropertyChanged(nameof(TotalHoursText));
         }
         private async Task ReviewWeeklyAsync()
         {
             TotalHours = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Week);
             OnPropertyChanged(nameof(TotalHours));
+            OnPropertyChanged(nameof(TotalHoursText));
         }
         private async Task ReviewMonthlyAsync()
         {
             TotalHours = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Month);
             OnPropertyChanged(nameof(TotalHours));
+            OnPropertyChanged(nameof(TotalHoursText));
         }
         private async Task GoToHomeAsync()
         {
             await Shell.Current.GoToAsync("//MainPage");
         }
         public ICommand NavigateHomeCommand { get; }
-        public TimeSpan TotalHours { get; set; }
+        private TimeSpan TotalHours { get; set; }
+        public string TotalHoursText => $"{TotalHours.Hours}h {TotalHours.Minutes}m"; // formating 
+
+
+
     }
 }

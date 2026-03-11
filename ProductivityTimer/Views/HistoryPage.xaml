@@ -17,7 +17,7 @@
         Spacing="20"
         Padding="30">
         
-        <Label Text="{Binding TotalHours}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="18" Margin="0,0,0,20"/>
+        <Label Text="{Binding TotalHoursText}" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontSize="18" Margin="0,0,0,20"/>
 
         <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
             <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">

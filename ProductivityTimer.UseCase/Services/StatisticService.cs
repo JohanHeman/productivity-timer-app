@@ -23,7 +23,7 @@ namespace ProductivityTimer.Application.Services
                 TimeRange.Day => await _workSessionRepository.GetTotalHoursForDayAsync(date),
                 TimeRange.Week => await _workSessionRepository.GetTotalHoursForWeekAsync(date),
                 TimeRange.Month => await _workSessionRepository.GetTotalHoursForMonthAsync(date),
-                _ => throw new ArgumentOutOfRangeException(nameof(range), range, "Unsupported time range")
+                _ => throw new ArgumentOutOfRangeException(nameof(range), range, "Invalid time range")
             };
         }
     }
