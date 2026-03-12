@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
@@ -12,7 +13,6 @@ namespace ProductivityTimer.ViewModels
     public class DailyHabitPageViewModel : INotifyPropertyChanged
     {
 
-        private readonly ILogger<DailyHabitPageViewModel> _logger;
         public ICommand AddDailyHabitCommand { get; }
         public ICommand CheckOffDailyHabitCommand { get; }
         public ICommand GetAllDailyHabitsCommand { get; }
@@ -20,11 +20,11 @@ namespace ProductivityTimer.ViewModels
         // you can add a new task in an input box, you can check of tasks on a little check box, and you can remove them by pressing remove, and then clicking on a task to remove it.
 
         private readonly IDailyHabitService _dailyHabitService;
-        public DailyHabitPageViewModel(IDailyHabitService dailyHabitService, ILogger<DailyHabitPageViewModel> logger)
+        public DailyHabitPageViewModel(IDailyHabitService dailyHabitService)
         {
             _dailyHabitService = dailyHabitService;
-            _logger = logger;
             AddDailyHabitCommand = new Command(async () => await AddDailyHabitAsync());
+
         }
 
 
@@ -40,6 +40,7 @@ namespace ProductivityTimer.ViewModels
                 OnPropertyChanged(nameof(HabitName));
             }
         }
+        public ObservableCollection<DailyHabit> DailyHabits { get; } = new();
 
         private void OnPropertyChanged(string propertyName)
         {
@@ -62,10 +63,28 @@ namespace ProductivityTimer.ViewModels
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed to add new habit");
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to add new habit", "OK");
                 HabitName = string.Empty;
             }
         }
+        private async Task LoadHabitsAsync()
+        {
+            try
+            {
+                DailyHabits.Clear();
+                var habits = await _dailyHabitService.GetHabitsAsync();
+                foreach (var habit in habits)
+                {
+                    DailyHabits.Add(habit);
+                }
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", "Failed to load habits", "OK");
+            }
+        }
+
+        public Task InitializeAsync() => LoadHabitsAsync();
+
     }
 }

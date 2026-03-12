@@ -7,7 +7,7 @@ namespace ProductivityTimer.Application.Interfaces
 {
     public interface IDailyHabitService
     {
-        Task<DailyHabitsList> GetHabitsAsync();
+        Task<IReadOnlyList<DailyHabit>> GetHabitsAsync();
         Task AddHabitAsync(DailyHabit habit);
         Task CheckHabitAsync(DailyHabit habit);
         Task UpdateHabitAsync(DailyHabit habit);

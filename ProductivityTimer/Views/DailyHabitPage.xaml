@@ -47,5 +47,26 @@
                 Style="{StaticResource GradientButtonText}"
                 />
         </Grid>
+
+            <CollectionView ItemsSource="{Binding DailyHabits}">
+                <!--inside this block we decide how each item will be displayed on the list-->
+                <CollectionView.ItemsLayout>
+                    <!--spacing between items-->
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <!--this is the actual item that will be displayed on the list and 
+                        gets repeated for each item in the list-->
+                        <Border StrokeThickness="0" StrokeShape="RoundRectangle 10" Padding="12" Margin="0,0,0,0">
+                            <Border.Background>
+                                <SolidColorBrush Color="#222b3a" />
+                            </Border.Background>
+                            <Label Text="{Binding Name}" TextColor="White" FontSize="16" />
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
     </VerticalStackLayout>
 </ContentPage>

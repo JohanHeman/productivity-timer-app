@@ -10,4 +10,13 @@ public partial class DailyHabitPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
+
+		if (BindingContext is DailyHabitPageViewModel viewModel)
+		{
+			await viewModel.InitializeAsync(); // Loads the list 
+		}
+	}
 }

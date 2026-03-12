@@ -37,9 +37,17 @@ namespace ProductivityTimer.Application.Services
             throw new NotImplementedException();
         }
 
-        public Task<DailyHabitsList> GetHabitsAsync()
+        public async Task<IReadOnlyList<DailyHabit>> GetHabitsAsync()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var habits = await _dailyHabitRepository.GetAllDailyHabitsAsync();
+                return habits.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get habits", ex);
+            }
         }
 
         public Task UpdateHabitAsync(DailyHabit habit)
