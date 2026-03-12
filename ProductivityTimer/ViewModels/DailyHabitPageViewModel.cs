@@ -28,9 +28,6 @@ namespace ProductivityTimer.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-
-
-
         private string _habitName { get; set; }
         public string HabitName
         {
@@ -97,18 +94,18 @@ namespace ProductivityTimer.ViewModels
         public Task InitializeAsync() => LoadHabitsAsync();
 
 
- 
+
         private async void OnHabitRowPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_isRefreshing) return;
-            if (e.PropertyName != nameof(DailyHabitRow.IsCompleted))
+            if (_isRefreshing) return; // if list is being built, ignore changes
+            if (e.PropertyName != nameof(DailyHabitRow.IsCompleted)) // only react when the completion state changes
                 return;
 
-            if (sender is not DailyHabitRow row || !row.IsCompleted)
+            if (sender is not DailyHabitRow row || !row.IsCompleted) // the row has to be dailyhabitrow and completed
                 return;
 
-            await _dailyHabitService.CheckHabitAsync(row.Habit);
-            await LoadHabitsAsync();
+            await _dailyHabitService.CheckHabitAsync(row.Habit); // saves 
+            await LoadHabitsAsync(); // reloads the list
         }
 
     }
