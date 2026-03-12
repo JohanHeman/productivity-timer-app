@@ -65,5 +65,10 @@ namespace ProductivityTimer.Application.Facade
         {
             await _timerService.ContinueTimerAsync();
         }
+
+        public async Task BreakAsync()
+        {
+            await _timerService.BreakTimerAsync();
+        }
     }
 }

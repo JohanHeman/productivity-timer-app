@@ -31,7 +31,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             catch (SQLite.SQLiteException ex)
             {
                 _logger.LogError(ex, "Failed to get total hours for day");
-                throw;
+                throw;// Throws the error to the caller
             }
         }
 

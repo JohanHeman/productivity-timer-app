@@ -11,6 +11,7 @@ namespace ProductivityTimer.Application.Services.Enums
             running,
             stopped,
             paused,
+            onBreak,
             completed
         }
     }

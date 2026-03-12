@@ -27,6 +27,7 @@ namespace ProductivityTimer.ViewModels
             _workFacade.TimeChanged += OnTimeChanged; // subscribe to the event
             SessionCommand = new Command(async () => await OnSessionCommandExecuted());
             StateCommand = new Command(async () => await OnStateCommandExecuted());
+            BreakCommand = new Command(async () => await OnBreakCommandExecuted());
         }
 
         private async Task GoToHomeAsync()
@@ -37,6 +38,7 @@ namespace ProductivityTimer.ViewModels
         public ICommand NavigateHomeCommand { get; }
         public ICommand SessionCommand { get; }
         public ICommand StateCommand { get; }
+        public ICommand BreakCommand { get; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private void OnPropertyChanged(string name)
@@ -105,9 +107,21 @@ namespace ProductivityTimer.ViewModels
             else
             {
                 IsSPaused = false;
+                _audioPlayer?.Stop();
+                _isTimerZero = false;
                 OnPropertyChanged(nameof(PauseButtonText));
                 await _workFacade.ContinueAsync();
             }
+        }
+
+        private async Task OnBreakCommandExecuted()
+        {
+            if (_audioPlayer != null)
+            {
+                _audioPlayer.Stop();
+            }
+            _isTimerZero = false;
+            await _workFacade.BreakAsync();
         }
     }
 }

@@ -44,8 +44,12 @@
                     />
         </Grid>
 
-        <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
-            <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+        <Grid WidthRequest="220" HorizontalOptions="Center" ColumnSpacing="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0" StrokeThickness="0" StrokeShape="RoundRectangle 14">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#4338CA" Offset="0.0" />
@@ -55,12 +59,28 @@
                 <Border.Shadow>
                     <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
                 </Border.Shadow>
-            </Border>
-            <Button
+                <Button
+                    WidthRequest="100"
                     Text="{Binding PauseButtonText}"
                     Style="{StaticResource GradientButtonText}"
-                    Command="{Binding StateCommand}"
-                    />
+                    Command="{Binding StateCommand}" />
+            </Border>
+            <Border Grid.Column="1" StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#4338CA" Offset="0.0" />
+                        <GradientStop Color="#0F766E" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                </Border.Shadow>
+                <Button
+                    WidthRequest="100"
+                    Text="break"
+                    Style="{StaticResource GradientButtonText}"
+                    Command="{Binding BreakCommand}" />
+            </Border>
         </Grid>
 
         <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">

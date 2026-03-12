@@ -13,5 +13,6 @@ namespace ProductivityTimer.Application.Interfaces
         Task ResetTimerAsync();
         TimeSpan GetRemainingTime();
         Task ContinueTimerAsync();
+        Task BreakTimerAsync();
     }
 }

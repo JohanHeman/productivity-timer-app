@@ -46,6 +46,11 @@ namespace ProductivityTimer.Application.Services
                 case TimeStateEnum.TimeState.stopped:
                     _timerState = TimeStateEnum.TimeState.stopped;
                     break;
+                case TimeStateEnum.TimeState.onBreak:
+                    _timerState = TimeStateEnum.TimeState.onBreak;
+                    if (!_isTicking)
+                        await StartTickingAsync();
+                    break;
                 default:
                     throw new ArgumentException("Invalid state");
             }
@@ -57,19 +62,27 @@ namespace ProductivityTimer.Application.Services
             _isTicking = true;
             try
             {
-                while (_isTicking && _timerState == TimeStateEnum.TimeState.running && _remainingTime > TimeSpan.Zero)
+                while (_isTicking && (_timerState == TimeStateEnum.TimeState.running
+                || _timerState == TimeStateEnum.TimeState.onBreak) && _remainingTime > TimeSpan.Zero)
                 {
                     await Task.Delay(1000);
-                    if (_timerState != TimeStateEnum.TimeState.running) break;
+                    if (_timerState != TimeStateEnum.TimeState.running && _timerState != TimeStateEnum.TimeState.onBreak) break;
 
                     _remainingTime -= TimeSpan.FromSeconds(1);
-                    TimeChanged?.Invoke(_remainingTime); // firing the event to notify that the time is changed and passes the remainingtime value
+                    TimeChanged?.Invoke(_remainingTime); // firing the event and sends the remainingtime value to the facade class 
                 }
             }
             finally
             {
                 _isTicking = false; // if loop ends stop ticking 
             }
+        }
+
+        public async Task BreakTimerAsync()
+        {
+            _remainingTime = TimeSpan.FromMinutes(10);
+            TimeChanged?.Invoke(_remainingTime);
+            await SetState(TimeStateEnum.TimeState.onBreak);
         }
     }
 }
