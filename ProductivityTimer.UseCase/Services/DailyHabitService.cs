@@ -1,4 +1,5 @@
 ﻿using ProductivityTimer.Application.Interfaces;
+using ProductivityTimer.Domain.Interfaces;
 using ProductivityTimer.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,22 @@ namespace ProductivityTimer.Application.Services
 {
     public class DailyHabitService : IDailyHabitService
     {
-        public Task AddHabitAsync(DailyHabit habit)
+
+        private readonly IDailyHabitRepository _dailyHabitRepository;
+        public DailyHabitService(IDailyHabitRepository dailyHabitRepository)
         {
-            throw new NotImplementedException();
+            _dailyHabitRepository = dailyHabitRepository;
+        }
+        public async Task AddHabitAsync(DailyHabit habit)
+        {
+            try
+            {
+                await _dailyHabitRepository.AddDailyHabitAsync(habit);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to add habit", ex);
+            }
         }
 
         public Task CheckHabitAsync(DailyHabit habit)

@@ -43,6 +43,8 @@ namespace ProductivityTimer
             builder.Services.AddTransient<HistoryPage>();
             builder.Services.AddTransient<QuoteApplicationService>();
             builder.Services.AddTransient<IStatisticService, StatisticService>();
+            builder.Services.AddTransient<DailyHabitPageViewModel>();
+            builder.Services.AddTransient<DailyHabitPage>();
 
 
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService

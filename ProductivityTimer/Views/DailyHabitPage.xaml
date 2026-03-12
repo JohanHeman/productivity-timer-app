@@ -11,7 +11,41 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <VerticalStackLayout Spacing="30" Padding="30">
-        <Label Text="Daily Habit Tracker" />
+    <VerticalStackLayout Spacing="24" Padding="40,80" HorizontalOptions="Center" WidthRequest="340">
+        <Label 
+            Text="Daily Habit Tracker" 
+            FontSize="28" 
+            FontAttributes="Bold" 
+            TextColor="#ffffff"
+            HorizontalOptions="Center"/>
+        <Entry 
+            Text="{Binding HabitName}" 
+            Placeholder="Enter habit name" 
+            HeightRequest="48"
+            WidthRequest="280"
+            FontSize="18"
+            BackgroundColor="#222b3a"
+            PlaceholderColor="#9ca3af"
+            TextColor="#ffffff"
+            Margin="0,20,0,0"
+            HorizontalOptions="Center"/>
+        <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center" Margin="0,12,0,0">
+            <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#4338CA" Offset="0.0" />
+                        <GradientStop Color="#0F766E" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <Border.Shadow>
+                    <Shadow Brush="#66000000" Offset="0,6" Radius="12" Opacity="0.7" />
+                </Border.Shadow>
+            </Border>
+            <Button
+                Text="Add Habit"
+                Command="{Binding AddDailyHabitCommand}"
+                Style="{StaticResource GradientButtonText}"
+                />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>
