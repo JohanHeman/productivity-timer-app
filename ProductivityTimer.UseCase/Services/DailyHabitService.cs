@@ -31,6 +31,12 @@ namespace ProductivityTimer.Application.Services
         {
             try
             {
+                var completions = await _dailyHabitRepository.GetCompletionsForDailyHabitAsync(habit);
+                var alreadyCheckedToday = completions.Any(h => h.CompletedDate.Date == DateTime.Today);
+
+                if (alreadyCheckedToday)
+                    return;
+
                 await _dailyHabitRepository.CheckOffDailyHabitAsync(habit);
             }
             catch (Exception ex)

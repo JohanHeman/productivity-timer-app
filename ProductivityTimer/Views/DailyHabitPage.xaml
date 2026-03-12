@@ -62,7 +62,21 @@
                             <Border.Background>
                                 <SolidColorBrush Color="#222b3a" />
                             </Border.Background>
-                            <Label Text="{Binding Name}" TextColor="White" FontSize="16" />
+                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                                <CheckBox Grid.Column="0"
+                                          IsChecked="{Binding IsCompleted, Mode=TwoWay}"
+                                          VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="2"
+                                       Text="{Binding Streak}"
+                                       TextColor="#9ca3af"
+                                       FontSize="14"
+                                       VerticalOptions="Center" />
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using ProductivityTimer.Application.Interfaces;
 using ProductivityTimer.Domain.Models.Entities;
+using ProductivityTimer.Models;
 
 namespace ProductivityTimer.ViewModels
 {
@@ -14,10 +15,7 @@ namespace ProductivityTimer.ViewModels
     {
 
         public ICommand AddDailyHabitCommand { get; }
-        public ICommand CheckOffDailyHabitCommand { get; }
-        public ICommand GetAllDailyHabitsCommand { get; }
-        // i want to make one list displayed when you go to the page, here you can see your daily habits, and the streak for them too
-        // you can add a new task in an input box, you can check of tasks on a little check box, and you can remove them by pressing remove, and then clicking on a task to remove it.
+        private bool _isRefreshing;
 
         private readonly IDailyHabitService _dailyHabitService;
         public DailyHabitPageViewModel(IDailyHabitService dailyHabitService)
@@ -30,6 +28,9 @@ namespace ProductivityTimer.ViewModels
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+
+
+
         private string _habitName { get; set; }
         public string HabitName
         {
@@ -40,7 +41,7 @@ namespace ProductivityTimer.ViewModels
                 OnPropertyChanged(nameof(HabitName));
             }
         }
-        public ObservableCollection<DailyHabit> DailyHabits { get; } = new();
+        public ObservableCollection<DailyHabitRow> DailyHabits { get; } = new();
 
         private void OnPropertyChanged(string propertyName)
         {
@@ -70,22 +71,45 @@ namespace ProductivityTimer.ViewModels
         }
         private async Task LoadHabitsAsync()
         {
+            _isRefreshing = true;
             try
             {
                 DailyHabits.Clear();
                 var habits = await _dailyHabitService.GetHabitsAsync();
                 foreach (var habit in habits)
                 {
-                    DailyHabits.Add(habit);
+                    var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
+                    var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = streak > 0 };
+                    row.PropertyChanged += OnHabitRowPropertyChanged;
+                    DailyHabits.Add(row);
                 }
             }
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to load habits", "OK");
             }
+            finally
+            {
+                _isRefreshing = false;
+            }
         }
 
         public Task InitializeAsync() => LoadHabitsAsync();
+
+
+ 
+        private async void OnHabitRowPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            if (_isRefreshing) return;
+            if (e.PropertyName != nameof(DailyHabitRow.IsCompleted))
+                return;
+
+            if (sender is not DailyHabitRow row || !row.IsCompleted)
+                return;
+
+            await _dailyHabitService.CheckHabitAsync(row.Habit);
+            await LoadHabitsAsync();
+        }
 
     }
 }
