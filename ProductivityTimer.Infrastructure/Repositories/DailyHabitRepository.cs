@@ -109,6 +109,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         }
         public async Task<IEnumerable<HabitCompletion>> GetCompletionsForDailyHabitAsync(DailyHabit dailyHabit)
         {
+            // gets all the habitcompletions from the database 
             try
             {
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();

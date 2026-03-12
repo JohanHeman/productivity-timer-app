@@ -60,6 +60,7 @@ namespace ProductivityTimer.ViewModels
 
                 await _dailyHabitService.AddHabitAsync(habit);
                 HabitName = string.Empty;
+                await LoadHabitsAsync();
             }
             catch (Exception ex)
             {

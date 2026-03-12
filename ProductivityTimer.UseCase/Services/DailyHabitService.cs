@@ -27,14 +27,28 @@ namespace ProductivityTimer.Application.Services
             }
         }
 
-        public Task CheckHabitAsync(DailyHabit habit)
+        public async Task CheckHabitAsync(DailyHabit habit)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _dailyHabitRepository.CheckOffDailyHabitAsync(habit);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to check off habit", ex);
+            }
         }
 
-        public Task DeleteHabitAsync(DailyHabit habit)
+        public async Task DeleteHabitAsync(DailyHabit habit)
         {
-            throw new NotImplementedException();
+            try
+            {
+                await _dailyHabitRepository.RemoveDailyHabitAsync(habit);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to delete habit", ex);
+            }
         }
 
         public async Task<IReadOnlyList<DailyHabit>> GetHabitsAsync()
@@ -50,9 +64,33 @@ namespace ProductivityTimer.Application.Services
             }
         }
 
-        public Task UpdateHabitAsync(DailyHabit habit)
+        public async Task<int> GetHabitStreakAsync(DailyHabit habit)
         {
-            throw new NotImplementedException();
+            var completions = await _dailyHabitRepository.GetCompletionsForDailyHabitAsync(habit);
+
+            var completedDates = completions.Select(h => h.CompletedDate.Date).Distinct(); // ensures there are no duplicates
+            var completedDateLookup = new HashSet<DateTime>(completedDates); // creates hasshet of completed dates
+            var currentDate = DateTime.Today;
+            int streak = 0;
+            // goes one day at a time backwars until streak breaks, then returns the streak
+            while (completedDateLookup.Contains(currentDate))
+            {
+                streak++;
+                currentDate = currentDate.AddDays(-1);
+            }
+            return streak;
+        }
+
+        public async Task UpdateHabitAsync(DailyHabit habit)
+        {
+            try
+            {
+                await _dailyHabitRepository.UpdateDailyHabitAsync(habit);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to update habit", ex);
+            }
         }
     }
 }
