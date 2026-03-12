@@ -25,23 +25,24 @@ namespace ProductivityTimer
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton(AudioManager.Current); // use the existing audio manager
             builder.Services.AddSingleton<DatabaseInitializer>();
             builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitRepository>();
             builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
             builder.Services.AddSingleton<IWorkSessionRepository, WorkSessionRepository>();
+            builder.Services.AddSingleton<IDailyHabitService, DailyHabitService>();
+
 
             builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<WorkPageViewModel>();
             builder.Services.AddTransient<WorkPage>();
             builder.Services.AddTransient<HistoryPageViewModel>();
-            builder.Services.AddTransient<HistoryPage>();
-            builder.Services.AddTransient<QuoteApplicationService>();
             builder.Services.AddTransient<ITimerService, TimerService>();
             builder.Services.AddTransient<IWorkFacade, WorkFacade>();
+            builder.Services.AddTransient<HistoryPage>();
+            builder.Services.AddTransient<QuoteApplicationService>();
             builder.Services.AddTransient<IStatisticService, StatisticService>();
-
-            builder.Services.AddSingleton(AudioManager.Current); // use the existing audio manager
 
 
             // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService

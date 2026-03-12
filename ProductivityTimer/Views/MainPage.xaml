@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductivityTimer.Views.MainPage">
            <ContentPage.Background>
-            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                <GradientStop Color="#0B1020" Offset="0.0" />
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1"> <!--start at the top left corner, stop at the right bottom corner-->
+                <GradientStop Color="#0B1020" Offset="0.0" /> <!--Defines what color to put at what part of the page-->
                 <GradientStop Color="#111827" Offset="0.5" />
                 <GradientStop Color="#1F2937" Offset="1.0" />
             </LinearGradientBrush>
@@ -22,7 +22,9 @@
                 FontSize="18"
                 Margin="0,0,0,20"/>
 
-            
+            <!--One grid for each button to create around each button
+            The border makes the buttons look cleaner, and the grid is just a container for the buttons, the buttons have a standard styling set in 
+            GradientButtonText that includes a transparent background color-->
             <Grid WidthRequest="220" HeightRequest="50" HorizontalOptions="Center">
                 <Border StrokeThickness="0" StrokeShape="RoundRectangle 14">
                     <Border.Background>
