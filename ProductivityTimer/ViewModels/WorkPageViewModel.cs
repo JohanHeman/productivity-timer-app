@@ -16,9 +16,13 @@ namespace ProductivityTimer.ViewModels
         private bool IsSPaused;
         public string SessionbuttonText => IsSessionStarted ? "Stop" : "Start";
         public string PauseButtonText => IsSPaused ? "continue" : "Pause";
-        private readonly IAudioManager _audioManager;
-        private IAudioPlayer? _audioPlayer;
+
+        // from plugin.maui.audio library 
+        private readonly IAudioManager _audioManager; // manages the audio files
+        private IAudioPlayer? _audioPlayer; // plays the audio files
+
         private readonly IWorkFacade _workFacade; // creating instance of facade and calling more readable methods for the UI
+
         public WorkPageViewModel(IWorkFacade workfacade, IAudioManager audioManager)
         {
             _audioManager = audioManager;
@@ -35,6 +39,7 @@ namespace ProductivityTimer.ViewModels
             await Shell.Current.GoToAsync("//MainPage");
         }
 
+        // commands for buttons
         public ICommand NavigateHomeCommand { get; }
         public ICommand SessionCommand { get; }
         public ICommand StateCommand { get; }
@@ -46,6 +51,7 @@ namespace ProductivityTimer.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        // timer text
         public string TimerText => RemainingTime.ToString(@"mm\:ss");
         private TimeSpan _remainingTime;
         public TimeSpan RemainingTime
@@ -61,15 +67,15 @@ namespace ProductivityTimer.ViewModels
 
         private void OnTimeChanged(TimeSpan time)
         {
-            RemainingTime = time;
+            RemainingTime = time; // updates remaining time to the ui
 
-            if (time <= TimeSpan.Zero && !_isTimerZero)
+            if (time <= TimeSpan.Zero && !_isTimerZero) // whenever time is 0 and flag = false play alarm sound
             {
                 _isTimerZero = true;
                 if (_audioPlayer != null)
                 {
-                    _audioPlayer.Stop();
-                    _audioPlayer.Play();
+                    _audioPlayer.Stop(); // reset sound
+                    _audioPlayer.Play(); // play alarm sound
                 }
             }
         }

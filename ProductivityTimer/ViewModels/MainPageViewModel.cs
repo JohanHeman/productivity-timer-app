@@ -13,12 +13,14 @@ namespace ProductivityTimer.ViewModels
     {
         private readonly IQuoteService _quoteService;
         private readonly ILogger<MainPageViewModel> _logger;
-        private readonly QuoteApplicationService _getQuoteUseCase;
+        private readonly QuoteApplicationService _getQuoteService;
         public ICommand WorkNavigationCommand { get; }
         public ICommand HistoryNavigationCommand { get; }
         public ICommand QuitCommand { get; }
 
-        public MainPageViewModel(IQuoteService quoteService, ILogger<MainPageViewModel> logger, QuoteApplicationService getQuoteUseCase)
+        // displays quote text and navígation to other pages 
+
+        public MainPageViewModel(IQuoteService quoteService, ILogger<MainPageViewModel> logger, QuoteApplicationService getQuoteService)
         {
             WorkNavigationCommand = new Command(async () => await GoToWorkAsync());
             HistoryNavigationCommand = new Command(async () => await GoToHistoryAsync());
@@ -26,7 +28,7 @@ namespace ProductivityTimer.ViewModels
             _quoteText = string.Empty;
             _quoteService = quoteService;
             _logger = logger;
-            _getQuoteUseCase = getQuoteUseCase;
+            _getQuoteService = getQuoteService;
         }
 
         private string _quoteText { get; set; }
@@ -61,7 +63,7 @@ namespace ProductivityTimer.ViewModels
         {
             try
             {
-                var quote = await _getQuoteUseCase.GetQuoteAsync();
+                var quote = await _getQuoteService.GetQuoteAsync();
                 QuoteText = $"{quote.Text}\n - {quote.Author}";
             }
             catch (Exception ex)

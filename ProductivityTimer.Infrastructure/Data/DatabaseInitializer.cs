@@ -14,7 +14,7 @@ namespace ProductivityTimer.Infrastructure.Data
         {
             _connectionFactory = SQLiteConnectionFactory.GetConnectionFactory();
         }
-
+        //Creates tables for the database
         public async Task InitializeAsync()
         {
             var connection = _connectionFactory.CreateConnection();
