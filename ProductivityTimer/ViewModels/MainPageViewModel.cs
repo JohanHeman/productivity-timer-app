@@ -17,6 +17,7 @@ namespace ProductivityTimer.ViewModels
         public ICommand WorkNavigationCommand { get; }
         public ICommand HistoryNavigationCommand { get; }
         public ICommand QuitCommand { get; }
+        public ICommand HabitTrackerNavigationCommand { get; }
 
         // displays quote text and navígation to other pages 
 
@@ -25,10 +26,16 @@ namespace ProductivityTimer.ViewModels
             WorkNavigationCommand = new Command(async () => await GoToWorkAsync());
             HistoryNavigationCommand = new Command(async () => await GoToHistoryAsync());
             QuitCommand = new Command(() => Microsoft.Maui.Controls.Application.Current?.Quit());
+            HabitTrackerNavigationCommand = new Command(async () => await GoToHabitTrackerAsync());
             _quoteText = string.Empty;
             _quoteService = quoteService;
             _logger = logger;
             _getQuoteService = getQuoteService;
+        }
+
+        private async Task GoToHabitTrackerAsync()
+        {
+            await Shell.Current.GoToAsync("DailyHabitPage");
         }
 
         private string _quoteText { get; set; }

@@ -10,7 +10,7 @@ namespace ProductivityTimer
         {
             InitializeComponent();
             _databaseInitializer = databaseInitializer;
-            
+
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
@@ -24,7 +24,7 @@ namespace ProductivityTimer
 
             base.OnStart();
             try
-            { // setting up database tables
+            { // setting up database tables at startup
                 await _databaseInitializer.InitializeAsync();
             }
             catch (Exception ex)
@@ -33,7 +33,6 @@ namespace ProductivityTimer
                 {
                     await App.Current.MainPage.DisplayAlertAsync("Database Error", ex.Message, "OK");
                 }
-
             }
         }
     }

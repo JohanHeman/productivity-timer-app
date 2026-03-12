@@ -8,6 +8,7 @@ namespace ProductivityTimer
             // maps the routes to the pages
             Routing.RegisterRoute(nameof(Views.WorkPage), typeof(Views.WorkPage));
             Routing.RegisterRoute(nameof(Views.HistoryPage), typeof(Views.HistoryPage));
+            Routing.RegisterRoute(nameof(Views.DailyHabitPage), typeof(Views.DailyHabitPage));
         }
     }
 }
