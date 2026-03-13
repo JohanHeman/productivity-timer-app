@@ -44,10 +44,25 @@ namespace ProductivityTimer.ViewModels
 
         private async Task UpdateHabitAsync(DailyHabitRow row)
         {
+            if (row == null) return;
             try
             {
-                if (row == null) return;
+                if (!row.IsEditing)
+                {
+                    row.EditableName = row.Habit.Name;
+                    row.IsEditing = true;
+                    return;
+                }
+                var newName = row.EditableName;
+                if (string.IsNullOrWhiteSpace(newName))
+                {
+                    await Shell.Current.DisplayAlertAsync("Error", "Habit name is required", "OK");
+                    return;
+                }
+
+                row.Habit.Name = newName;
                 await _dailyHabitService.UpdateHabitAsync(row.Habit);
+                row.IsEditing = false;
                 await LoadHabitsAsync();
             }
             catch (Exception ex)
@@ -107,7 +122,7 @@ namespace ProductivityTimer.ViewModels
                 foreach (var habit in habits) // foreach habit, create a new DailyHabitRow for the view
                 {
                     var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
-                    var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = streak > 0 };
+                    var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = streak > 0, IsEditing = false, EditableName = habit.Name };
                     row.PropertyChanged += OnHabitRowPropertyChanged; // subscribe the method to the DailyHabitRow event
                     DailyHabits.Add(row);
                 }

@@ -74,7 +74,29 @@
                                        WidthRequest="130"
                                        LineBreakMode="TailTruncation"
                                        MaxLines="1"
-                                       VerticalOptions="Center" />
+                                       VerticalOptions="Center">
+                                       <!--isEditing true, show entry, false show label-->
+                                    <Label.Triggers>
+                                        <DataTrigger TargetType="Label" Binding="{Binding IsEditing}" Value="True">
+                                            <Setter Property="IsVisible" Value="False" /> <!--changes visibility of entry and label-->
+                                        </DataTrigger>
+                                    </Label.Triggers>
+                                </Label>
+                                <Entry Grid.Column="1"
+                                       Text="{Binding EditableName, Mode=TwoWay}"
+                                       TextColor="White"
+                                       FontSize="16"
+                                       WidthRequest="130"
+                                       BackgroundColor="Transparent"
+                                       IsVisible="False"
+                                       VerticalOptions="Center">
+                                       <!--isEditing true, show entry, false show label-->
+                                    <Entry.Triggers>
+                                        <DataTrigger TargetType="Entry" Binding="{Binding IsEditing}" Value="True">
+                                            <Setter Property="IsVisible" Value="True" /> <!--changes visibility of entry and label-->
+                                        </DataTrigger>
+                                    </Entry.Triggers>
+                                </Entry>
                                 <Label Grid.Column="2"
                                        Text="{Binding Streak}"
                                        TextColor="#9ca3af"
