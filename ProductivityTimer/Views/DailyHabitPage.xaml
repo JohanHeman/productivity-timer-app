@@ -11,7 +11,7 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <VerticalStackLayout Spacing="24" Padding="40,80" HorizontalOptions="Center" WidthRequest="340">
+    <VerticalStackLayout Spacing="24" Padding="40,80" HorizontalOptions="Center" WidthRequest="460">
         <Label 
             Text="Daily Habit Tracker" 
             FontSize="28" 
@@ -22,7 +22,7 @@
             Text="{Binding HabitName}" 
             Placeholder="Enter habit name" 
             HeightRequest="48"
-            WidthRequest="280"
+            WidthRequest="360"
             FontSize="18"
             BackgroundColor="#222b3a"
             PlaceholderColor="#9ca3af"
@@ -48,7 +48,7 @@
                 />
         </Grid>
 
-            <CollectionView ItemsSource="{Binding DailyHabits}">
+            <CollectionView ItemsSource="{Binding DailyHabits}" WidthRequest="420">
                 <!--inside this block we decide how each item will be displayed on the list-->
                 <CollectionView.ItemsLayout>
                     <!--spacing between items-->
@@ -62,7 +62,7 @@
                             <Border.Background>
                                 <SolidColorBrush Color="#222b3a" />
                             </Border.Background>
-                            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+                            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*" ColumnSpacing="8">
                                 <CheckBox Grid.Column="0"
                                           IsChecked="{Binding IsCompleted, Mode=TwoWay}"
                                           VerticalOptions="Center" />
@@ -70,12 +70,32 @@
                                        Text="{Binding Name}"
                                        TextColor="White"
                                        FontSize="16"
+                                       WidthRequest="130"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1"
                                        VerticalOptions="Center" />
                                 <Label Grid.Column="2"
                                        Text="{Binding Streak}"
                                        TextColor="#9ca3af"
-                                       FontSize="14"
+                                       FontSize="17"
+                                       FontAttributes="Bold"
                                        VerticalOptions="Center" />
+                                <Button Grid.Column="3"
+                                        Text="Update"
+                                        Command="{Binding UpdateHabitCommand}"
+                                        Style="{StaticResource GradientButtonText}"
+                                        VerticalOptions="Center"
+                                        HeightRequest="34"
+                                        WidthRequest="64"
+                                        Padding="6,4" />
+                                <Button Grid.Column="4"
+                                        Text="Remove"
+                                        Command="{Binding RemoveHabitCommand}"
+                                        Style="{StaticResource GradientButtonText}"
+                                        VerticalOptions="Center"
+                                        HeightRequest="34"
+                                        WidthRequest="70"
+                                        Padding="6,4" />
                             </Grid>
                         </Border>
                     </DataTemplate>
