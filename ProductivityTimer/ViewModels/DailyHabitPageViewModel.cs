@@ -15,6 +15,8 @@ namespace ProductivityTimer.ViewModels
     {
 
         public ICommand AddDailyHabitCommand { get; }
+        public ICommand UpdateHabitCommand { get; }
+        public ICommand RemoveHabitCommand { get; }
         private bool _isRefreshing; // flag to prevent functions from being called multiple times
 
         private readonly IDailyHabitService _dailyHabitService;
@@ -22,9 +24,19 @@ namespace ProductivityTimer.ViewModels
         {
             _dailyHabitService = dailyHabitService;
             AddDailyHabitCommand = new Command(async () => await AddDailyHabitAsync());
-
+            UpdateHabitCommand = new Command(async () => await UpdateHabitAsync());
+            RemoveHabitCommand = new Command(async () => await RemoveHabitAsync());
         }
 
+        private async Task RemoveHabitAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        private async Task UpdateHabitAsync()
+        {
+            throw new NotImplementedException();
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
