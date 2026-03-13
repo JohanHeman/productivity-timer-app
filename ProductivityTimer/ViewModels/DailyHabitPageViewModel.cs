@@ -15,7 +15,7 @@ namespace ProductivityTimer.ViewModels
     {
 
         public ICommand AddDailyHabitCommand { get; }
-        private bool _isRefreshing;
+        private bool _isRefreshing; // flag to prevent functions from being called multiple times
 
         private readonly IDailyHabitService _dailyHabitService;
         public DailyHabitPageViewModel(IDailyHabitService dailyHabitService)
@@ -68,6 +68,7 @@ namespace ProductivityTimer.ViewModels
         }
         private async Task LoadHabitsAsync()
         {
+            if (_isRefreshing) return; // guard to prevent multiple loads of the same list 
             _isRefreshing = true;
             try
             {
@@ -97,7 +98,7 @@ namespace ProductivityTimer.ViewModels
 
         private async void OnHabitRowPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
-            if (_isRefreshing) return; // if list is being built, ignore changes
+            if (_isRefreshing) return; // guard to prevent multiple checks of the same list 
             if (e.PropertyName != nameof(DailyHabitRow.IsCompleted)) // only react when the completion state changes
                 return;
 
