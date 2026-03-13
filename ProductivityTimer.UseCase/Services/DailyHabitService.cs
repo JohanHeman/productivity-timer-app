@@ -72,11 +72,14 @@ namespace ProductivityTimer.Application.Services
 
         public async Task<int> GetHabitStreakAsync(DailyHabit habit)
         {
-            var completions = await _dailyHabitRepository.GetCompletionsForDailyHabitAsync(habit);
+            var completions = await _dailyHabitRepository.GetCompletionsForDailyHabitAsync(habit); // gets history of completions
 
             var completedDates = completions.Select(h => h.CompletedDate.Date).Distinct(); // ensures there are no duplicates
+            if (!completedDates.Any()) return 0; // check if streak is 0
+
             var completedDateLookup = new HashSet<DateTime>(completedDates); // creates hasshet of completed dates
-            var currentDate = DateTime.Today;
+            var currentDate = completedDates.Max(); // streaks start at the last completed date
+
             int streak = 0;
             // goes one day at a time backwars until streak breaks, then returns the streak
             while (completedDateLookup.Contains(currentDate))

@@ -24,12 +24,12 @@ namespace ProductivityTimer.Application.Services
         public async Task StartTimerAsync()
         {
             _remainingTime = _defaultTime;
-            TimeChanged?.Invoke(_remainingTime);
+            TimeChanged?.Invoke(_remainingTime); // it starts at given time and not one second later ex 50:00 wont start at 49:59s
             await SetState(TimeStateEnum.TimeState.running);
         }
         public async Task StopTimerAsync() => await SetState(TimeStateEnum.TimeState.stopped);
 
-        public event Action<TimeSpan>? TimeChanged; // creates an event that sends a TimeSpan value
+        public event Action<TimeSpan>? TimeChanged;
 
         private async Task SetState(TimeStateEnum.TimeState state)
         {
