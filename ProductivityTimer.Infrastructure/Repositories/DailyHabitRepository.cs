@@ -23,7 +23,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
-
+                // creates a new DBmodel record, and inserts it into the databse
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var record = new DailyHabitRecord { Name = dailyHabit.Name, DailyHabitsListId = dailyHabit.DailyHabitsListId };
                 await database.InsertAsync(record);
@@ -42,7 +42,9 @@ namespace ProductivityTimer.Infrastructure.Repositories
         {
             try
             {
+
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
+                // maps the domain model to the DBmodel record, and inserts it into the database
                 var record = new HabitCompletionRecord { DailyHabitRecordId = dailyHabit.Id, CompletedDate = DateTime.Now };
                 await database.InsertAsync(record);
             }
@@ -109,6 +111,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
         }
         public async Task<IEnumerable<HabitCompletion>> GetCompletionsForDailyHabitAsync(DailyHabit dailyHabit)
         {
+            // maps the DBmodel record to the domain model
             // gets all the habitcompletions from the database 
             try
             {

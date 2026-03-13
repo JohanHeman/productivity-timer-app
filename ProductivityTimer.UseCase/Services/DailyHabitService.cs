@@ -32,6 +32,7 @@ namespace ProductivityTimer.Application.Services
             try
             {
                 var completions = await _dailyHabitRepository.GetCompletionsForDailyHabitAsync(habit);
+                // prevent multiple checks on the same day
                 var alreadyCheckedToday = completions.Any(h => h.CompletedDate.Date == DateTime.Today);
 
                 if (alreadyCheckedToday)
@@ -77,8 +78,8 @@ namespace ProductivityTimer.Application.Services
             var completedDates = completions.Select(h => h.CompletedDate.Date).Distinct(); // ensures there are no duplicates
             if (!completedDates.Any()) return 0; // check if streak is 0
 
-            var completedDateLookup = new HashSet<DateTime>(completedDates); // creates hasshet of completed dates
-            var currentDate = completedDates.Max(); // streaks start at the last completed date
+            var completedDateLookup = new HashSet<DateTime>(completedDates); // creates hashet of completed dates for fast lookup avg (o(1))
+            var currentDate = completedDates.Max(); // streaks start at the last completed date to get the latest date of the streak 
 
             int streak = 0;
             // goes one day at a time backwars until streak breaks, then returns the streak

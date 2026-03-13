@@ -74,11 +74,11 @@ namespace ProductivityTimer.ViewModels
             {
                 DailyHabits.Clear();
                 var habits = await _dailyHabitService.GetHabitsAsync();
-                foreach (var habit in habits)
+                foreach (var habit in habits) // foreach habit, create a new DailyHabitRow for the view
                 {
                     var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
                     var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = streak > 0 };
-                    row.PropertyChanged += OnHabitRowPropertyChanged;
+                    row.PropertyChanged += OnHabitRowPropertyChanged; // subscribe the method to the DailyHabitRow event
                     DailyHabits.Add(row);
                 }
             }
@@ -95,14 +95,14 @@ namespace ProductivityTimer.ViewModels
         public Task InitializeAsync() => LoadHabitsAsync();
 
 
-
+        // the sender is the DailyHabitRow from LoadHabitsAsync(), and e is the changed property
         private async void OnHabitRowPropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             if (_isRefreshing) return; // guard to prevent multiple checks of the same list 
             if (e.PropertyName != nameof(DailyHabitRow.IsCompleted)) // only react when the completion state changes
                 return;
 
-            if (sender is not DailyHabitRow row || !row.IsCompleted) // the row has to be dailyhabitrow and completed
+            if (sender is not DailyHabitRow row || !row.IsCompleted) // Ignore events that are not related, and if the senders checkbox is not completed
                 return;
 
             await _dailyHabitService.CheckHabitAsync(row.Habit); // saves 
