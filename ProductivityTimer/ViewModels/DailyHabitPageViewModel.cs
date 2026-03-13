@@ -24,18 +24,36 @@ namespace ProductivityTimer.ViewModels
         {
             _dailyHabitService = dailyHabitService;
             AddDailyHabitCommand = new Command(async () => await AddDailyHabitAsync());
-            UpdateHabitCommand = new Command(async () => await UpdateHabitAsync());
-            RemoveHabitCommand = new Command(async () => await RemoveHabitAsync());
+            UpdateHabitCommand = new Command<DailyHabitRow>(async (row) => await UpdateHabitAsync(row));
+            RemoveHabitCommand = new Command<DailyHabitRow>(async (row) => await RemoveHabitAsync(row));
         }
 
-        private async Task RemoveHabitAsync()
+        private async Task RemoveHabitAsync(DailyHabitRow row)
         {
-            throw new NotImplementedException();
+            if (row == null) return;
+            try
+            {
+                await _dailyHabitService.RemoveHabitAsync(row.Habit);
+                await LoadHabitsAsync();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", "Failed to remove habit", "OK");
+            }
         }
 
-        private async Task UpdateHabitAsync()
+        private async Task UpdateHabitAsync(DailyHabitRow row)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (row == null) return;
+                await _dailyHabitService.UpdateHabitAsync(row.Habit);
+                await LoadHabitsAsync();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", "Failed to update habit", "OK");
+            }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

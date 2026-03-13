@@ -46,7 +46,7 @@ namespace ProductivityTimer.Application.Services
             }
         }
 
-        public async Task DeleteHabitAsync(DailyHabit habit)
+        public async Task RemoveHabitAsync(DailyHabit habit)
         {
             try
             {

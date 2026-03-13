@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductivityTimer.Views.DailyHabitPage"
-             Title="DailyHabitPage">
+             Title="DailyHabitPage"
+             x:Name="DailyHabitPageRoot">
     <ContentPage.Background>
         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
             <GradientStop Color="#0B1020" Offset="0.0" />
@@ -80,9 +81,11 @@
                                        FontSize="17"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center" />
+                                <!-- In DataTemplate, item context is DailyHabitRow; x:Reference reaches the VM that is set as bindingcontext in the code behind, and CommandParameter passes current row -->
                                 <Button Grid.Column="3"
                                         Text="Update"
-                                        Command="{Binding UpdateHabitCommand}"
+                                        Command="{Binding Source={x:Reference DailyHabitPageRoot}, Path=BindingContext.UpdateHabitCommand}"
+                                        CommandParameter="{Binding .}"
                                         Style="{StaticResource GradientButtonText}"
                                         VerticalOptions="Center"
                                         HeightRequest="34"
@@ -90,7 +93,8 @@
                                         Padding="6,4" />
                                 <Button Grid.Column="4"
                                         Text="Remove"
-                                        Command="{Binding RemoveHabitCommand}"
+                                        Command="{Binding Source={x:Reference DailyHabitPageRoot}, Path=BindingContext.RemoveHabitCommand}"
+                                        CommandParameter="{Binding .}"
                                         Style="{StaticResource GradientButtonText}"
                                         VerticalOptions="Center"
                                         HeightRequest="34"
