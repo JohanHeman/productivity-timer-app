@@ -28,7 +28,7 @@ namespace ProductivityTimer.ViewModels
             _audioManager = audioManager;
             NavigateHomeCommand = new Command(async () => await GoToHomeAsync());
             _workFacade = workfacade;
-            _workFacade.TimeChanged += OnTimeChanged; // subscribe to the event
+            _workFacade.TimeChanged += OnTimeChanged; // subscribe OnTimeChanged to the TimeChanged event, so when TimeChanged event fires, OnTimeChanged method runs
             SessionCommand = new Command(async () => await OnSessionCommandExecuted());
             StateCommand = new Command(async () => await OnStateCommandExecuted());
             BreakCommand = new Command(async () => await OnBreakCommandExecuted());
@@ -67,6 +67,7 @@ namespace ProductivityTimer.ViewModels
 
         private void OnTimeChanged(TimeSpan time)
         {
+            // time is passed from facade TimeChanged event
             RemainingTime = time; // updates remaining time to the ui
 
             if (time <= TimeSpan.Zero && !_isTimerZero) // whenever time is 0 and flag = false play alarm sound

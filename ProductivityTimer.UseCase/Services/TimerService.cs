@@ -14,9 +14,9 @@ namespace ProductivityTimer.Application.Services
         private TimeStateEnum.TimeState _timerState = TimeStateEnum.TimeState.stopped;
         public async Task ContinueTimerAsync()
         {
-            if (_remainingTime <= TimeSpan.Zero)
+            if (_remainingTime <= TimeSpan.Zero) // safety check in case continue is pressed after timer completion
                 _remainingTime = _defaultTime;
-            await SetState(TimeStateEnum.TimeState.running);
+            await SetState(TimeStateEnum.TimeState.running); // make time run again from where it stopped
         }
         public TimeSpan GetRemainingTime() => _remainingTime;
         public async Task PauseTimerAsync() => await SetState(TimeStateEnum.TimeState.paused);
