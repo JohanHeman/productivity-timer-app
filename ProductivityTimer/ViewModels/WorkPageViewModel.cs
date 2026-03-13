@@ -85,6 +85,7 @@ namespace ProductivityTimer.ViewModels
             if (!IsSessionStarted)
             {
                 IsSessionStarted = true;
+                _audioPlayer?.Stop();
                 _isTimerZero = false;
 
                 if (_audioPlayer == null)
