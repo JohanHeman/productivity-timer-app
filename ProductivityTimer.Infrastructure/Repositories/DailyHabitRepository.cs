@@ -136,7 +136,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
 
         public async Task UnCheckHabitAsync(DailyHabit dailyHabit)
         {
-            // uncheck the habit that was checked today with simple delete query
+            // uncheck the habit that was checked today with simple delete
             try
             {
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();

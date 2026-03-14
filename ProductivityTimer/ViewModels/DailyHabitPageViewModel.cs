@@ -117,12 +117,15 @@ namespace ProductivityTimer.ViewModels
             _isRefreshing = true;
             try
             {
+                var checkedByHabitId = DailyHabits.ToDictionary(h => h.Habit.Id, h => h.IsCompleted); // create a dictionary of habit ids and their completion status to keep track of checked habits
                 DailyHabits.Clear();
+
                 var habits = await _dailyHabitService.GetHabitsAsync();
                 foreach (var habit in habits) // foreach habit, create a new DailyHabitRow for the view
                 {
                     var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
-                    var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = streak > 0, IsEditing = false, EditableName = habit.Name };
+                    var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = checkedByHabitId.TryGetValue(habit.Id, out var isCompleted) ? isCompleted : false, IsEditing = false, EditableName = habit.Name };
+
                     row.PropertyChanged += OnHabitRowPropertyChanged; // subscribe the method to the DailyHabitRow event
                     DailyHabits.Add(row);
                 }
@@ -158,15 +161,14 @@ namespace ProductivityTimer.ViewModels
                 }
                 else
                 {
-                    await _dailyHabitService.UnCheckHabitAsync(row.Habit);
+                    await _dailyHabitService.UnCheckDailyHabitAsync(row.Habit);
                 }
-                row.Streak = await _dailyHabitService.GetHabitStreakAsync(row.Habit);
+                await LoadHabitsAsync();
             }
             catch (Exception ex)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to check habit", "OK");
             }
         }
-
     }
 }
