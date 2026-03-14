@@ -28,7 +28,6 @@ namespace ProductivityTimer
             builder.Services.AddSingleton(AudioManager.Current); // use the existing audio manager
             builder.Services.AddSingleton<DatabaseInitializer>();
             builder.Services.AddSingleton<IDailyHabitRepository, DailyHabitRepository>();
-            builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
             builder.Services.AddSingleton<IWorkSessionRepository, WorkSessionRepository>();
             builder.Services.AddSingleton<IDailyHabitService, DailyHabitService>();
             builder.Services.AddTransient<ITimerService, TimerService>();

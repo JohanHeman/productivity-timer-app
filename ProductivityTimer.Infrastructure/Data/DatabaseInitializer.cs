@@ -21,8 +21,6 @@ namespace ProductivityTimer.Infrastructure.Data
             await connection.CreateTableAsync<DailyHabitRecord>();
             await connection.CreateTableAsync<DailyHabitListRecord>();
             await connection.CreateTableAsync<HabitCompletionRecord>();
-            await connection.CreateTableAsync<ToDoListRecord>();
-            await connection.CreateTableAsync<ToDoTaskRecord>();
             await connection.CreateTableAsync<WorkSessionRecord>();
         }
     }
