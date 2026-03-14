@@ -31,15 +31,14 @@ namespace ProductivityTimer
             builder.Services.AddSingleton<ITaskRepository, TaskRepository>();
             builder.Services.AddSingleton<IWorkSessionRepository, WorkSessionRepository>();
             builder.Services.AddSingleton<IDailyHabitService, DailyHabitService>();
-
+            builder.Services.AddTransient<ITimerService, TimerService>();
+            builder.Services.AddTransient<IWorkFacade, WorkFacade>();
 
             builder.Services.AddTransient<MainPageViewModel>();
             builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<WorkPageViewModel>();
             builder.Services.AddTransient<WorkPage>();
             builder.Services.AddTransient<HistoryPageViewModel>();
-            builder.Services.AddTransient<ITimerService, TimerService>();
-            builder.Services.AddTransient<IWorkFacade, WorkFacade>();
             builder.Services.AddTransient<HistoryPage>();
             builder.Services.AddTransient<QuoteApplicationService>();
             builder.Services.AddTransient<IStatisticService, StatisticService>();

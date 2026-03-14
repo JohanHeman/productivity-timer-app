@@ -124,12 +124,27 @@ namespace ProductivityTimer.ViewModels
 
         private async Task OnBreakCommandExecuted()
         {
-            if (_audioPlayer != null)
+            _audioPlayer?.Stop();
+
+            if (_audioPlayer == null)
             {
-                _audioPlayer.Stop();
+                var stream = await FileSystem.OpenAppPackageFileAsync("Alarm.mp3");
+                _audioPlayer = _audioManager.CreatePlayer(stream);
             }
+
             _isTimerZero = false;
             await _workFacade.BreakAsync();
+        }
+        public async Task StopWhenLeavingPageAsync()
+        {
+            // reset the page when leaving 
+            _audioPlayer?.Stop();
+            _isTimerZero = false;
+            await _workFacade.StopAndSaveAsync();
+            IsSessionStarted = false;
+            IsSPaused = false;
+            OnPropertyChanged(nameof(SessionbuttonText));
+            OnPropertyChanged(nameof(PauseButtonText));
         }
     }
 }

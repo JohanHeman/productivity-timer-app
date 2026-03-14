@@ -9,4 +9,13 @@ public partial class WorkPage : ContentPage
 		InitializeComponent();
 		BindingContext = viewModel;
 	}
+
+	protected override async void OnDisappearing()
+	{
+		base.OnDisappearing();
+		if (BindingContext is WorkPageViewModel viewModel)
+		{
+			await viewModel.StopWhenLeavingPageAsync();
+		}
+	}
 }
