@@ -102,5 +102,16 @@ namespace ProductivityTimer.Application.Services
                 throw new Exception("Failed to update habit", ex);
             }
         }
+        public async Task UnCheckHabitAsync(DailyHabit habit)
+        {
+            try
+            {
+                await _dailyHabitRepository.UnCheckHabitAsync(habit);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to uncheck habit", ex);
+            }
+        }
     }
 }

@@ -133,5 +133,27 @@ namespace ProductivityTimer.Infrastructure.Repositories
                 throw;
             }
         }
+
+        public async Task UnCheckHabitAsync(DailyHabit dailyHabit)
+        {
+            // uncheck the habit that was checked today with simple delete query
+            try
+            {
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
+                var today = DateTime.Today;
+                var dayEnd = today.AddDays(1);
+                var record = await database.Table<HabitCompletionRecord>().Where(r => r.DailyHabitRecordId == dailyHabit.Id && r.CompletedDate >= today && r.CompletedDate < dayEnd).FirstOrDefaultAsync();
+                if (record == null)
+                {
+                    throw new KeyNotFoundException("Habit completion not found");
+                }
+                await database.DeleteAsync(record);
+            }
+            catch (SQLite.SQLiteException ex)
+            {
+                _logger.LogError(ex, "Failed to uncheck habit");
+                throw;
+            }
+        }
     }
 }

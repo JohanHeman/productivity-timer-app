@@ -147,11 +147,25 @@ namespace ProductivityTimer.ViewModels
             if (e.PropertyName != nameof(DailyHabitRow.IsCompleted)) // only react when the completion state changes
                 return;
 
-            if (sender is not DailyHabitRow row || !row.IsCompleted) // Ignore events that are not related, and if the senders checkbox is not completed
+            if (sender is not DailyHabitRow row) // Ignore events that are not related
                 return;
 
-            await _dailyHabitService.CheckHabitAsync(row.Habit); // saves 
-            await LoadHabitsAsync(); // reloads the list
+            try
+            {
+                if (row.IsCompleted)
+                {
+                    await _dailyHabitService.CheckHabitAsync(row.Habit);
+                }
+                else
+                {
+                    await _dailyHabitService.UnCheckHabitAsync(row.Habit);
+                }
+                row.Streak = await _dailyHabitService.GetHabitStreakAsync(row.Habit);
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlertAsync("Error", "Failed to check habit", "OK");
+            }
         }
 
     }
