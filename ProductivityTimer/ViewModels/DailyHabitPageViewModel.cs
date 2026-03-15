@@ -43,7 +43,7 @@ namespace ProductivityTimer.ViewModels
                 await _dailyHabitService.RemoveHabitAsync(row.Habit);
                 await LoadHabitsAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to remove habit", "OK");
             }
@@ -72,7 +72,7 @@ namespace ProductivityTimer.ViewModels
                 row.IsEditing = false;
                 await LoadHabitsAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to update habit", "OK");
             }
@@ -112,7 +112,7 @@ namespace ProductivityTimer.ViewModels
                 HabitName = string.Empty;
                 await LoadHabitsAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to add new habit", "OK");
                 HabitName = string.Empty;
@@ -137,7 +137,7 @@ namespace ProductivityTimer.ViewModels
                     DailyHabits.Add(row);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to load habits", "OK");
             }
@@ -172,7 +172,7 @@ namespace ProductivityTimer.ViewModels
                 }
                 await LoadHabitsAsync();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Shell.Current.DisplayAlertAsync("Error", "Failed to check habit", "OK");
             }
