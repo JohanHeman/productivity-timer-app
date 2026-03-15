@@ -10,7 +10,7 @@ namespace ProductivityTimer.Application.Services
     {
         private bool _isTicking;
         private TimeSpan _remainingTime;
-        private TimeSpan _defaultTime = TimeSpan.FromMinutes(0.1);
+        private TimeSpan _defaultTime = TimeSpan.FromMinutes(50);
         private TimeStateEnum.TimeState _timerState = TimeStateEnum.TimeState.stopped;
         public async Task ContinueTimerAsync()
         {
@@ -80,7 +80,7 @@ namespace ProductivityTimer.Application.Services
 
         public async Task BreakTimerAsync()
         {
-            _remainingTime = TimeSpan.FromMinutes(0.1);
+            _remainingTime = TimeSpan.FromMinutes(10);
             TimeChanged?.Invoke(_remainingTime);
             await SetState(TimeStateEnum.TimeState.onBreak);
         }
