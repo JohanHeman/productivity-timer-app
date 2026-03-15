@@ -76,7 +76,7 @@
 
 	<ItemGroup>
 	  <ProjectReference Include="..\ProductivityTimer.Infrastructure\ProductivityTimer.Infrastructure.csproj" />
-	  <ProjectReference Include="..\ProductivityTimer.UseCase\ProductivityTimer.Application.csproj" />
+	  <ProjectReference Include="..\ProductivityTimer.Application\ProductivityTimer.Application.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
