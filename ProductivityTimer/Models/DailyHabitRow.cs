@@ -34,15 +34,9 @@ namespace ProductivityTimer.Models
                 if (_isEditing == value) return;
                 _isEditing = value;
                 OnPropertyChanged(nameof(IsEditing));
-                OnPropertyChanged(nameof(IsEdting));
             }
         }
 
-        public bool IsEdting
-        {
-            get => IsEditing;
-            set => IsEditing = value;
-        }
 
         private string _editableName = string.Empty;
         public string EditableName
