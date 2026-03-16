@@ -103,7 +103,7 @@
                                        FontSize="17"
                                        FontAttributes="Bold"
                                        VerticalOptions="Center" />
-                                <!-- In DataTemplate, item context is DailyHabitRow; x:Reference reaches the VM that is set as bindingcontext in the code behind, and CommandParameter passes current row -->
+                                <!-- In DataTemplate, item context is DailyHabitRow; x:Reference reaches the VM that is set as bindingcontext in the code behind, and CommandParameter passes current row, this is beacause we are inside the collectionview that is binded allready -->
                                 <Button Grid.Column="3"
                                         Text="Update"
                                         Command="{Binding Source={x:Reference DailyHabitPageRoot}, Path=BindingContext.UpdateHabitCommand}"
