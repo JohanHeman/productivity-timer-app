@@ -38,7 +38,7 @@ namespace ProductivityTimer.Models
         }
 
 
-        private string _editableName = string.Empty;
+        private string _editableName = string.Empty; // will act as the displayed name in the ui, to not change the Habit.name until the user saves
         public string EditableName
         {
             get => _editableName;

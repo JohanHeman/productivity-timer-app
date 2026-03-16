@@ -56,10 +56,11 @@ namespace ProductivityTimer.ViewModels
             {
                 if (!row.IsEditing)
                 {
-                    row.EditableName = row.Habit.Name;
+                    row.EditableName = row.Habit.Name; // when entering edit mnode, set the displayed name to the current habit name
                     row.IsEditing = true;
                     return;
                 }
+                //create a new name, set it to Habit name, and update the habit with the service
                 var newName = row.EditableName;
                 if (string.IsNullOrWhiteSpace(newName))
                 {
@@ -78,7 +79,7 @@ namespace ProductivityTimer.ViewModels
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged; 
 
         private string _habitName { get; set; }
         public string HabitName
@@ -90,6 +91,7 @@ namespace ProductivityTimer.ViewModels
                 OnPropertyChanged(nameof(HabitName));
             }
         }
+
         public ObservableCollection<DailyHabitRow> DailyHabits { get; } = new();
 
         private void OnPropertyChanged(string propertyName)
@@ -147,7 +149,7 @@ namespace ProductivityTimer.ViewModels
             }
         }
 
-        public Task InitializeAsync() => LoadHabitsAsync();
+        public Task InitializeAsync() => LoadHabitsAsync(); // to load the habits on startup in xaml.cs file
 
 
         // the sender is the DailyHabitRow from LoadHabitsAsync(), and e is the changed property
