@@ -38,3 +38,6 @@ check it every day to build streaks
 
 <h2>You can also review how many hours you have worker per day/month/year </h2>
 
+<img width="495" height="511" alt="image" src="https://github.com/user-attachments/assets/7a0de517-1304-4922-b1c5-04927feab0e6" />
+
+
