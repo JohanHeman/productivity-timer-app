@@ -34,14 +34,7 @@ check it every day to build streaks
 
 <img width="570" height="127" alt="image" src="https://github.com/user-attachments/assets/0a8c5a31-bb95-4406-bd20-f69f98a4ebf8" />
 
-<h2>Update the name </h2>
 
-<img width="664" height="135" alt="image" src="https://github.com/user-attachments/assets/f22e51fb-7054-4279-90c1-2c7009ff7b64" />
-
-
-and delete it 
-
-<img width="581" height="72" alt="image" src="https://github.com/user-attachments/assets/23146a6c-1c79-4f6c-a9d5-0e2dbcb5112a" />
 
 <h2>You can also review how many hours you have worker per day/month/year </h2>
 
