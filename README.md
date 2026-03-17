@@ -7,7 +7,7 @@ This is a productivity & timer app used for focused work sessions, and building 
 
 
 <h2>Work page</h2>
-The work page is set to be 50 minutes of foucs, and 10 minute brak timer. There is also an alarm when the timer hits 0 on booth. 
+The work page is set to be 50 minutes of foucs, and a 10 minute break timer. There is also an alarm when the timer hits 0 on booth. 
 
 Work timer
 
@@ -24,7 +24,7 @@ Break timer
 <img width="687" height="575" alt="image" src="https://github.com/user-attachments/assets/f8700540-f2d1-4865-bcea-59087112b6f2" />
 
 
-<h3>Add a new habit </h3>
+<h3>You can pefrom crud operations on the habits in your habit list</h3>
 
 <img width="547" height="356" alt="image" src="https://github.com/user-attachments/assets/17f8e78d-7853-4c37-be0d-5901164e6677" />
 
