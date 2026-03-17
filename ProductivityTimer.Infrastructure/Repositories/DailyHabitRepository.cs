@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
             {
                 // creates a new DBmodel record, and inserts it into the databse
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
-                var record = new DailyHabitRecord { Name = dailyHabit.Name, DailyHabitsListId = dailyHabit.DailyHabitsListId };
+                var record = new DailyHabitRecord { Name = dailyHabit.Name };
                 await database.InsertAsync(record);
 
             }
@@ -62,7 +62,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
 
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
                 var records = await database.Table<DailyHabitRecord>().ToListAsync();
-                return records.Select(r => new DailyHabit { Id = r.Id, Name = r.Name, DailyHabitsListId = r.DailyHabitsListId }).ToList();
+                return records.Select(r => new DailyHabit { Id = r.Id, Name = r.Name }).ToList();
 
             }
             catch (SQLite.SQLiteException ex)
@@ -98,8 +98,7 @@ namespace ProductivityTimer.Infrastructure.Repositories
                 DailyHabitRecord record = new DailyHabitRecord()
                 {
                     Id = dailyHabit.Id,
-                    Name = dailyHabit.Name,
-                    DailyHabitsListId = dailyHabit.DailyHabitsListId
+                    Name = dailyHabit.Name
                 };
                 await database.UpdateAsync(record);
             }

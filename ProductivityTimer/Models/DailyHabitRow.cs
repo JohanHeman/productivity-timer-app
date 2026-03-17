@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using ProductivityTimer.Domain.Models.Entities;
+using ProductivityTimer.Domain.Entities;
 
 namespace ProductivityTimer.Models
 {
