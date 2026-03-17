@@ -115,10 +115,11 @@ namespace ProductivityTimer.Infrastructure.Repositories
             try
             {
                 var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
+                // gets records from database 
                 var records = await database.Table<HabitCompletionRecord>()
                     .Where(r => r.DailyHabitRecordId == dailyHabit.Id)
                     .ToListAsync();
-
+                // maps to domain entity 
                 return records.Select(r => new HabitCompletion
                 {
                     Id = r.Id,

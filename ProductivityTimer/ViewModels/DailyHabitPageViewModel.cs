@@ -133,6 +133,7 @@ namespace ProductivityTimer.ViewModels
                 foreach (var habit in habits) // foreach habit, create a new DailyHabitRow for the view
                 {
                     var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
+                    
                     var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = checkedByHabitId.TryGetValue(habit.Id, out var isCompleted) ? isCompleted : false, IsEditing = false, EditableName = habit.Name };
 
                     row.PropertyChanged += OnHabitRowPropertyChanged; // subscribe the method to the DailyHabitRow event
