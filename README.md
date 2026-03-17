@@ -30,7 +30,7 @@ Break timer
 
 check it every day to build streaks 
 
-<img width="741" height="131" alt="image" src="https://github.com/user-attachments/assets/ec07349f-40b8-4193-822a-1261854a4c64" />
+<img width="570" height="131" alt="image" src="https://github.com/user-attachments/assets/ec07349f-40b8-4193-822a-1261854a4c64" />
 
 <img width="570" height="127" alt="image" src="https://github.com/user-attachments/assets/0a8c5a31-bb95-4406-bd20-f69f98a4ebf8" />
 
