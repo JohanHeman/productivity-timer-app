@@ -6,7 +6,7 @@ using System.Text;
 using System.Windows.Input;
 using Microsoft.Extensions.Logging;
 using ProductivityTimer.Application.Interfaces;
-using ProductivityTimer.Domain.Models.Entities;
+using ProductivityTimer.Domain.Entities;
 using ProductivityTimer.Models;
 
 namespace ProductivityTimer.ViewModels

@@ -19,7 +19,6 @@ namespace ProductivityTimer.Infrastructure.Data
         {
             var connection = _connectionFactory.CreateConnection();
             await connection.CreateTableAsync<DailyHabitRecord>();
-            await connection.CreateTableAsync<DailyHabitListRecord>();
             await connection.CreateTableAsync<HabitCompletionRecord>();
             await connection.CreateTableAsync<WorkSessionRecord>();
         }
