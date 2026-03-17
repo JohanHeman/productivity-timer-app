@@ -6,8 +6,8 @@ using ProductivityTimer.Infrastructure.Data;
 using ProductivityTimer.Domain.Interfaces;
 using System.Data.Common;
 using Microsoft.Extensions.Logging;
-using ProductivityTimer.Infrastructure.Data.Models.DbModels;
 using ProductivityTimer.Domain.Entities;
+using ProductivityTimer.Infrastructure.Data.DbModels;
 namespace ProductivityTimer.Infrastructure.Repositories
 {
     public class DailyHabitRepository : IDailyHabitRepository

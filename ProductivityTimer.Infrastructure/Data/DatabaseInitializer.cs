@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using ProductivityTimer.Infrastructure.Data.Models.DbModels;
+using ProductivityTimer.Infrastructure.Data.DbModels;
 
 namespace ProductivityTimer.Infrastructure.Data
 {

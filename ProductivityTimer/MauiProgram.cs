@@ -45,7 +45,7 @@ namespace ProductivityTimer
             builder.Services.AddTransient<DailyHabitPage>();
 
 
-            // set up the httpclient for injection at Infrastructure/Services/QuoteAPIService
+            // set up QuoteService for DI and set its HttpClient with base url and API key allready added
             builder.Services.AddHttpClient<IQuoteService, QuoteService>(client =>
             {
                 client.BaseAddress = new Uri("https://api.api-ninjas.com/");

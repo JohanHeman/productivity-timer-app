@@ -1,6 +1,6 @@
 using SQLite;
 
-namespace ProductivityTimer.Infrastructure.Data.Models.DbModels
+namespace ProductivityTimer.Infrastructure.Data.DbModels
 {
     public class DailyHabitRecord
     {
