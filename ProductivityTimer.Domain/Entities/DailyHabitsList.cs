@@ -1,4 +1,4 @@
-namespace ProductivityTimer.Domain.Models.Entities
+namespace ProductivityTimer.Domain.Entities
 {
     public class DailyHabitsList
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProductivityTimer.Domain.Models.Entities
+namespace ProductivityTimer.Domain.Entities
 {
     public class WorkSession
     {

@@ -1,6 +1,6 @@
 ﻿using ProductivityTimer.Application.Interfaces;
+using ProductivityTimer.Domain.Entities;
 using ProductivityTimer.Domain.Interfaces;
-using ProductivityTimer.Domain.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;

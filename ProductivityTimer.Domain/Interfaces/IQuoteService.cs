@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ProductivityTimer.Domain.Models.Entities;
+using ProductivityTimer.Domain.Entities;
 
 namespace ProductivityTimer.Domain.Interfaces
 {

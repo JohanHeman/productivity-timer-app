@@ -4,10 +4,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ProductivityTimer.Infrastructure.Data;
 using ProductivityTimer.Domain.Interfaces;
-using ProductivityTimer.Domain.Models.Entities;
 using System.Data.Common;
 using Microsoft.Extensions.Logging;
 using ProductivityTimer.Infrastructure.Data.Models.DbModels;
+using ProductivityTimer.Domain.Entities;
 namespace ProductivityTimer.Infrastructure.Repositories
 {
     public class DailyHabitRepository : IDailyHabitRepository

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using ProductivityTimer.Domain.Entities;
 using ProductivityTimer.Domain.Interfaces;
-using ProductivityTimer.Domain.Models.Entities;
 using ProductivityTimer.Infrastructure.Data;
 using ProductivityTimer.Infrastructure.Data.Models.DbModels;
 using System;
