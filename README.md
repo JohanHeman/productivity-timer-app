@@ -1,5 +1,5 @@
 This is a productivity & timer app used for focused work sessions, and building strong daily habits. 
-
+The work sessions and tasks are stored in a database using SQLite
 
 <h2>Start page</h2>
 
