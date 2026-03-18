@@ -7,13 +7,5 @@ namespace ProductivityTimer.Domain.Entities
         public TimeSpan ShortBreak { get; set; }
         public TimeSpan LongBreak { get; set; }
         public bool IsPaused { get; set; }
-        public PomodoroPhase CurrentPhase { get; set; }
-    }
-
-    public enum PomodoroPhase
-    {
-        Work,
-        ShortBreak,
-        LongBreak
     }
 }
