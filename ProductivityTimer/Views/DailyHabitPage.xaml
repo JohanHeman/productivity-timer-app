@@ -49,7 +49,7 @@
                 />
         </Grid>
 
-            <CollectionView ItemsSource="{Binding DailyHabits}" WidthRequest="420">
+            <CollectionView ItemsSource="{Binding DailyHabits}" WidthRequest="420" HeightRequest="300">
                 <!--inside this block we decide how each item will be displayed on the list-->
                 <CollectionView.ItemsLayout>
                     <!--spacing between items-->
