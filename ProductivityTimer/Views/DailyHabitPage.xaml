@@ -63,18 +63,18 @@
                             <Border.Background>
                                 <SolidColorBrush Color="#222b3a" />
                             </Border.Background>
-                            <Grid ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*" ColumnSpacing="8">
+                            <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto" ColumnSpacing="8">
                                 <CheckBox Grid.Column="0"
                                           IsChecked="{Binding IsCompleted, Mode=TwoWay}"
-                                          VerticalOptions="Center" />
+                                          VerticalOptions="Start"
+                                          Margin="0,4,0,0" />
                                 <Label Grid.Column="1"
                                        Text="{Binding Name}"
                                        TextColor="White"
                                        FontSize="16"
-                                       WidthRequest="130"
-                                       LineBreakMode="TailTruncation"
-                                       MaxLines="1"
-                                       VerticalOptions="Center">
+                                       LineBreakMode="WordWrap"
+                                       HorizontalOptions="Fill"
+                                       VerticalOptions="Start">
                                        <!--isEditing true, show entry, false show label-->
                                     <Label.Triggers>
                                         <DataTrigger TargetType="Label" Binding="{Binding IsEditing}" Value="True">
@@ -86,7 +86,7 @@
                                        Text="{Binding EditableName, Mode=TwoWay}"
                                        TextColor="White"
                                        FontSize="16"
-                                       WidthRequest="130"
+                                       HorizontalOptions="Fill"
                                        BackgroundColor="Transparent"
                                        IsVisible="False"
                                        VerticalOptions="Center">
