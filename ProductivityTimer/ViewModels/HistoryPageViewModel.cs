@@ -27,8 +27,8 @@ namespace ProductivityTimer.ViewModels
         public ICommand ReviewMonthlyCommand { get; }
         public ICommand NavigateHomeCommand { get; }
 
-        private TimeSpan TotalHours { get; set; }
-        public string TotalHoursText => $"{TotalHours.Hours}h {TotalHours.Minutes}m"; // formating  for display purposes
+        private TimeSpan TotalDuration { get; set; }
+        public string TotalHoursText => $"{(int)TotalDuration.TotalHours}h {TotalDuration.Minutes}m"; // formating  for display purposes
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -38,24 +38,24 @@ namespace ProductivityTimer.ViewModels
 
         private async Task ReviewDailyAsync()
         {
-            TotalHours = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Day);
-            OnPropertyChanged(nameof(TotalHours));
+            TotalDuration = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Day);
+            OnPropertyChanged(nameof(TotalDuration));
             OnPropertyChanged(nameof(TotalHoursText));
         }
 
 
         private async Task ReviewWeeklyAsync()
         {
-            TotalHours = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Week);
-            OnPropertyChanged(nameof(TotalHours));
+            TotalDuration = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Week);
+            OnPropertyChanged(nameof(TotalDuration));
             OnPropertyChanged(nameof(TotalHoursText));
         }
 
 
         private async Task ReviewMonthlyAsync()
         {
-            TotalHours = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Month);
-            OnPropertyChanged(nameof(TotalHours));
+            TotalDuration = await _statisticService.GetTotalHoursAsync(DateTime.Today, TimeRange.Month);
+            OnPropertyChanged(nameof(TotalDuration));
             OnPropertyChanged(nameof(TotalHoursText));
         }
 
