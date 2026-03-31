@@ -113,5 +113,10 @@ namespace ProductivityTimer.Application.Services
                 throw new Exception("Failed to uncheck habit", ex);
             }
         }
+
+        public Task<bool> IsHabitCompletedTodayAsync(DailyHabit habit)
+        {
+            return _dailyHabitRepository.IsHabitCompletedTodayAsybc(habit);
+        }
     }
 }

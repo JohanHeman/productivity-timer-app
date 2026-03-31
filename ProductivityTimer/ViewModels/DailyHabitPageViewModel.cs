@@ -126,16 +126,23 @@ namespace ProductivityTimer.ViewModels
             _isRefreshing = true;
             try
             {
-                var checkedByHabitId = DailyHabits.ToDictionary(h => h.Habit.Id, h => h.IsCompleted); // create a dictionary of habit ids and their completion status to keep track of checked habits
                 DailyHabits.Clear();
 
                 var habits = await _dailyHabitService.GetHabitsAsync();
                 foreach (var habit in habits) // foreach habit, create a new DailyHabitRow for the view
                 {
-                    var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
+                    var isCompletedToday = await _dailyHabitService.IsHabitCompletedTodayAsync(habit);
                     
-                    var row = new DailyHabitRow { Habit = habit, Streak = streak, IsCompleted = checkedByHabitId.TryGetValue(habit.Id, out var isCompleted) ? isCompleted : false, IsEditing = false, EditableName = habit.Name };
+                    var streak = await _dailyHabitService.GetHabitStreakAsync(habit);
 
+                    var row = new DailyHabitRow
+                    {
+                        Habit = habit,
+                        Streak = streak,
+                        IsCompleted = isCompletedToday,
+                        IsEditing = false,
+                        EditableName = habit.Name
+                    };
                     row.PropertyChanged += OnHabitRowPropertyChanged; // subscribe the method to the DailyHabitRow event
                     DailyHabits.Add(row);
                 }

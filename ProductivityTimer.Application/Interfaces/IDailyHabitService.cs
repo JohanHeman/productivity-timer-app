@@ -14,5 +14,6 @@ namespace ProductivityTimer.Application.Interfaces
         Task RemoveHabitAsync(DailyHabit habit);
         Task<int> GetHabitStreakAsync(DailyHabit habit);
         Task UnCheckDailyHabitAsync(DailyHabit habit);
+        Task<bool> IsHabitCompletedTodayAsync(DailyHabit habit);
     }
 }

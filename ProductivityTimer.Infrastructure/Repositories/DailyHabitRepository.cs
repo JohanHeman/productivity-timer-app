@@ -155,5 +155,23 @@ namespace ProductivityTimer.Infrastructure.Repositories
                 throw;
             }
         }
+
+        public async Task<bool> IsHabitCompletedTodayAsybc(DailyHabit habit)
+        {
+            try
+            {
+                var database = SQLiteConnectionFactory.GetConnectionFactory().CreateConnection();
+                var today = DateTime.Today;
+                var dayEnd = today.AddDays(1);
+                var record = await database.Table<HabitCompletionRecord>().Where(r => r.DailyHabitRecordId == habit.Id && r.CompletedDate >= today && r.CompletedDate < dayEnd).FirstOrDefaultAsync();
+                var isCompletedToday = record != null;
+                return isCompletedToday;
+            }
+            catch (SQLite.SQLiteException ex)
+            {
+                _logger.LogError(ex, "Failed to uncheck habit");
+                throw;
+            }
+        }
     }
 }

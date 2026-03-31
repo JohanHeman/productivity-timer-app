@@ -15,5 +15,6 @@ namespace ProductivityTimer.Domain.Interfaces
         Task CheckOffDailyHabitAsync(DailyHabit dailyHabit);
         Task<IEnumerable<HabitCompletion>> GetCompletionsForDailyHabitAsync(DailyHabit dailyHabit);
         Task UnCheckHabitAsync(DailyHabit dailyHabit);
+        Task<bool> IsHabitCompletedTodayAsybc(DailyHabit habit);
     }
 }
